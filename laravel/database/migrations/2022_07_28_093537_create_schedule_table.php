@@ -15,13 +15,21 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('monday');
-            $table->text('tuesday');
-            $table->text('wednesday');
-            $table->text('thursday');
-            $table->text('friday');
-            $table->text('saturday');
-            $table->text('sunday');
+            $table->time('monday_start')->nullable();
+            $table->time('monday_end')->nullable();
+            $table->time('tuesday_start')->nullable();
+            $table->time('tuesday_end')->nullable();
+            $table->time('wednesday_start')->nullable();
+            $table->time('wednesday_end')->nullable();
+            $table->time('thursday_start')->nullable();
+            $table->time('thursday_end')->nullable();
+            $table->time('friday_start')->nullable();
+            $table->time('friday_end')->nullable();
+            $table->time('saturday_start')->nullable();
+            $table->time('saturday_end')->nullable();
+            $table->time('sunday_start')->nullable();
+            $table->time('sunday_end')->nullable();
+
             $table->timestamps();
         });
     }

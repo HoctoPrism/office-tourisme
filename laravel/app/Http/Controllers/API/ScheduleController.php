@@ -37,24 +37,21 @@ class ScheduleController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $this->validate($request ,[
-            'monday' => 'required',
-            'tuesday' => 'required',
-            'wednesday' => 'required',
-            'thursday' => 'required',
-            'friday' => 'required',
-            'saturday' => 'required',
-            'sunday' => 'required'
-        ]);
-
         $schedule = Schedule::create([
-            'monday' => $request->monday,
-            'tuesday' => $request->tuesday,
-            'wednesday' => $request->wednesday,
-            'thursday' => $request->thursday,
-            'friday' => $request->friday,
-            'saturday' => $request->saturday,
-            'sunday' => $request->sunday,
+            'monday_start' => $request->monday_start,
+            'monday_end' => $request->monday_end,
+            'tuesday_start' => $request->tuesday_start,
+            'tuesday_end' => $request->tuesday_end,
+            'wednesday_start' => $request->wednesday_start,
+            'wednesday_end' => $request->wednesday_end,
+            'thursday_start' => $request->thursday_start,
+            'thursday_end' => $request->thursday_end,
+            'friday_start' => $request->friday_start,
+            'friday_end' => $request->friday_end,
+            'saturday_start' => $request->saturday_start,
+            'saturday_end' => $request->saturday_end,
+            'sunday_start' => $request->sunday_start,
+            'sunday_end' => $request->sunday_end
         ]);
 
         return response()->json([
@@ -84,24 +81,21 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, Schedule $schedule): JsonResponse
     {
-        $this->validate($request, [
-            'monday' => 'required',
-            'tuesday' => 'required',
-            'wednesday' => 'required',
-            'thursday' => 'required',
-            'friday' => 'required',
-            'saturday' => 'required',
-            'sunday' => 'required'
-        ]);
-
         $schedule->update([
-            'monday' => $request->monday,
-            'tuesday' => $request->tuesday,
-            'wednesday' => $request->wednesday,
-            'thursday' => $request->thursday,
-            'friday' => $request->friday,
-            'saturday' => $request->saturday,
-            'sunday' => $request->sunday,
+            'monday_start' => $request->monday_start,
+            'monday_end' => $request->monday_end,
+            'tuesday_start' => $request->tuesday_start,
+            'tuesday_end' => $request->tuesday_end,
+            'wednesday_start' => $request->wednesday_start,
+            'wednesday_end' => $request->wednesday_end,
+            'thursday_start' => $request->thursday_start,
+            'thursday_end' => $request->thursday_end,
+            'friday_start' => $request->friday_start,
+            'friday_end' => $request->friday_end,
+            'saturday_start' => $request->saturday_start,
+            'saturday_end' => $request->saturday_end,
+            'sunday_start' => $request->sunday_start,
+            'sunday_end' => $request->sunday_end
         ]);
 
         return response()->json([
