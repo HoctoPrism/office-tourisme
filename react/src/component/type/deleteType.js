@@ -49,7 +49,7 @@ function DeleteType(props) {
             >
                 <Box className="modal-type" sx={{bgcolor: 'background.default'}}>
                     <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="delete-type-title">Supprimer un type de
-                        voiture</Typography>
+                        lieux</Typography>
                     <FormControl>
                         <Box>
                             êtes vous sur de vouloir supprimer le type : {oneType.name}?

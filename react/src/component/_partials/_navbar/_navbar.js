@@ -1,7 +1,6 @@
 import {AppBar, Box, Button} from "@mui/material";
 import {SwitchModeButton} from "../_theme/_switchModeButton";
 import {useEffect} from "react";
-import '../../../assets/css/component/_partials/_navbar.scss';
 
 export function Navbar() {
 
@@ -14,6 +13,7 @@ export function Navbar() {
                 <Box sx={{m: 5, flexGrow: 1}} component="div">{document.title}</Box>
                 <Box className="navbar">
                     <Button color="secondary" href='/'>Accueil</Button>
+                    <Button color="secondary" href='type'>Type</Button>
                     <SwitchModeButton/>
                 </Box>
             </AppBar>

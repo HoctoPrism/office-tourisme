@@ -54,7 +54,7 @@ function EditType(props) {
             aria-describedby="child-modal-description"
         >
             <Box className="modal-type" sx={{bgcolor: 'background.default'}}>
-                <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="edit-type-title">Editer un type de voiture</Typography>
+                <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="edit-type-title">Editer un type de lieux</Typography>
                 <form onSubmit={handleSubmit(editTypeForm)}>
                     <FormControl>
                           <Controller

@@ -44,7 +44,7 @@ function NewType(props) {
             aria-describedby="child-modal-description"
         >
             <Box className="modal-type" sx={{bgcolor: 'background.default'}}>
-                <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="new-type-title">Nouveau type de voiture</Typography>
+                <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="new-type-title">Nouveau type de lieux</Typography>
                 <form onSubmit={handleSubmit(newTypeForm)}>
                     <FormControl>
                         <Controller
