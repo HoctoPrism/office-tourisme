@@ -94,13 +94,13 @@ function Schedule() {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={monday_start+id}>
                                             <TableCell>{id}</TableCell>
-                                            <TableCell>{monday_start ?? '--:--'} à {monday_end ?? '--:--'}</TableCell>
-                                            <TableCell>{tuesday_start ?? '--:--'} à {tuesday_end ?? '--:--'}</TableCell>
-                                            <TableCell>{wednesday_start ?? '--:--'} à {wednesday_end ?? '--:--'}</TableCell>
-                                            <TableCell>{thursday_start ?? '--:--'} à {thursday_end ?? '--:--'}</TableCell>
-                                            <TableCell>{friday_start ?? '--:--'} à {friday_end ?? '--:--'}</TableCell>
-                                            <TableCell>{saturday_start ?? '--:--'} à {saturday_end ?? '--:--'}</TableCell>
-                                            <TableCell>{sunday_start ?? '--:--'} à {sunday_end ?? '--:--'}</TableCell>
+                                            <TableCell>{monday_start ? monday_start.substring(5,0) : '--:--'} à {monday_end ? monday_end.substring(5,0) : '--:--'}</TableCell>
+                                            <TableCell>{tuesday_start ? tuesday_start.substring(5,0) : '--:--'} à {tuesday_end ? tuesday_end.substring(5,0) : '--:--'}</TableCell>
+                                            <TableCell>{wednesday_start ? wednesday_start.substring(5,0) : '--:--'} à {wednesday_end ? wednesday_end.substring(5,0) : '--:--'}</TableCell>
+                                            <TableCell>{thursday_start ? thursday_start.substring(5,0) : '--:--'} à {thursday_end ? thursday_end.substring(5,0) : '--:--'}</TableCell>
+                                            <TableCell>{friday_start ? friday_start.substring(5,0) : '--:--'} à {friday_end ? friday_end.substring(5,0) : '--:--'}</TableCell>
+                                            <TableCell>{saturday_start ? saturday_start.substring(5,0) : '--:--'} à {saturday_end ? saturday_end.substring(5,0) : '--:--'}</TableCell>
+                                            <TableCell>{sunday_start ? sunday_start.substring(5,0) : '--:--'} à {sunday_end ? sunday_end.substring(5,0) : '--:--'}</TableCell>
                                             <TableCell>
                                                 <Box sx={{display: 'flex', justifyContent: 'right'}}>
                                                     <EditSchedule updateValue={{id, monday_start, monday_end, tuesday_start, tuesday_end, wednesday_start, wednesday_end, thursday_start, thursday_end, friday_start, friday_end, saturday_start, saturday_end, sunday_start, sunday_end, data}} handleDataChange={handleDataChange} />
