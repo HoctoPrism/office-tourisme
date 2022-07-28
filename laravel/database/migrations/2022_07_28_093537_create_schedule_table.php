@@ -14,7 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('schedules', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->text('monday');
+            $table->text('tuesday');
+            $table->text('wednesday');
+            $table->text('thursday');
+            $table->text('friday');
+            $table->text('saturday');
+            $table->text('sunday');
             $table->timestamps();
         });
     }
