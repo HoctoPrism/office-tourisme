@@ -14,14 +14,14 @@ import {
     Typography,
     Alert
 } from "@mui/material";
-import DeleteType from "./deleteType";
-import NewType from "./newType";
-import EditType from "./editType";
+import DeleteEvent from "./deleteEvent";
+import NewEvent from "./newEvent";
+import EditEvent from "./editEvent";
 import axios from "axios";
 
-function Type() {
+function Event() {
 
-    document.title = 'Page des types';
+    document.title = 'Page des events';
 
     const [data, setData] = useState(null); // array of data
     const [loading, setLoading] = useState(true);
@@ -42,7 +42,7 @@ function Type() {
     };
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/types').then((actualData) => {
+        axios.get('http://127.0.0.1:8000/api/events').then((actualData) => {
             actualData = actualData.data;
             setLoading(true)
             setData(actualData.data);
@@ -58,22 +58,22 @@ function Type() {
     const handleDataChange = async (dataChange, message) => {
         await setData(dataChange)
         if (message && message === 'edit'){
-            setToastMessage({message: "Type modifié !", severity: "success"});
+            setToastMessage({message: "Event modifié !", severity: "success"});
             setShowToast(true);
         } else if(message && message === 'delete') {
-            setToastMessage({message: "Type supprimé !", severity: "success"});
+            setToastMessage({message: "Event supprimé !", severity: "success"});
             setShowToast(true);
         }
     }
 
-    return <Container maxWidth="md" id="type">
+    return <Container maxWidth="md" id="event">
         <Paper sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', py: 10}}>
-            <Typography variant="h3" sx={{textAlign: "center"}} gutterBottom>Types de lieux</Typography>
+            <Typography variant="h3" sx={{textAlign: "center"}} gutterBottom>Events</Typography>
             {loading ? (
-                <Typography variant="h5" sx={{textAlign: "center"}} gutterBottom>Chargement des types...</Typography>
+                <Typography variant="h5" sx={{textAlign: "center"}} gutterBottom>Chargement des events...</Typography>
             ) : (
                 <Box sx={{ maxWidth: '100%' }}>
-                    <NewType newValue={{data}} handleDataChange={handleDataChange} />
+                    <NewEvent newValue={{data}} handleDataChange={handleDataChange} />
                     <TableContainer sx={{ mt:4 }}>
                         <Table size="small">
                             <TableHead>
@@ -91,8 +91,8 @@ function Type() {
                                             <TableCell sx={{fontWeight: 'bold'}}>{name}</TableCell>
                                             <TableCell>
                                                 <Box sx={{display: 'flex', justifyContent: 'right'}}>
-                                                    <EditType updateValue={{id, name, data}} handleDataChange={handleDataChange} />
-                                                    <DeleteType deleteValue={{id, name, data}} handleDataChange={handleDataChange}/>
+                                                    <EditEvent updateValue={{id, name, data}} handleDataChange={handleDataChange} />
+                                                    <DeleteEvent deleteValue={{id, name, data}} handleDataChange={handleDataChange}/>
                                                 </Box>
                                             </TableCell>
                                         </TableRow>
@@ -127,4 +127,4 @@ function Type() {
     </Container>
 }
 
-export default Type;
+export default Event;

@@ -4,19 +4,19 @@ import update from "immutability-helper";
 import {DeleteForeverRounded} from "@mui/icons-material";
 import axios from "axios";
 
-function DeleteType(props) {
+function DeleteEvent(props) {
 
-    const [oneType, setOneType] = useState(""); // get parking
-    const [delType, setShowDelete] = useState(false);
+    const [oneEvent, setOneEvent] = useState(""); // get parking
+    const [delEvent, setShowDelete] = useState(false);
     const [toast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState({});
 
-    let deleteType = async (e) => {
+    let deleteEvent = async (e) => {
         e.preventDefault();
         try {
-            let res = await axios.delete('http://127.0.0.1:8000/api/types/' + oneType.id)
+            let res = await axios.delete('http://127.0.0.1:8000/api/events/' + oneEvent.id)
             if (res.status === 200) {
-                const foundIndex = props.deleteValue.data.findIndex(x => x.id === oneType.id);
+                const foundIndex = props.deleteValue.data.findIndex(x => x.id === oneEvent.id);
                 let data = update(props.deleteValue.data, {$splice: [[foundIndex, 1]]})
                 props.handleDataChange(data, 'delete');
                 setShowDelete(false)
@@ -34,7 +34,7 @@ function DeleteType(props) {
                 sx={{mx: 2}}
                 onClick={ () => {
                     setShowDelete(true)
-                    setOneType({id: props.deleteValue.id, name: props.deleteValue.name} )
+                    setOneEvent({id: props.deleteValue.id, name: props.deleteValue.name} )
                 } }
             >
                 <DeleteForeverRounded/>
@@ -42,20 +42,19 @@ function DeleteType(props) {
             <Modal
                 id="modal-crud-container"
                 hideBackdrop
-                open={delType}
+                open={delEvent}
                 onClose={() => setShowDelete(false)}
-                aria-labelledby="delete-type-title"
+                aria-labelledby="delete-event-title"
                 aria-describedby="child-modal-description"
             >
                 <Box className="modal-crud" sx={{bgcolor: 'background.default'}}>
-                    <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="delete-type-title">Supprimer un type de
-                        lieux</Typography>
+                    <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="delete-event-title">Supprimer un event</Typography>
                     <FormControl>
                         <Box>
-                            êtes vous sur de vouloir supprimer le type : {oneType.name}?
+                            êtes vous sur de vouloir supprimer l'event : {oneEvent.name}?
                         </Box>
                         <Box className="action-button">
-                            <Button sx={{m: 3}} type="submit" variant="contained" onClick={deleteType}>Envoyer</Button>
+                            <Button sx={{m: 3}} type="submit" variant="contained" onClick={deleteEvent}>Envoyer</Button>
                             <Button variant="outlined" onClick={() => setShowDelete(false)}>Fermer</Button>
                         </Box>
                     </FormControl>
@@ -76,4 +75,4 @@ function DeleteType(props) {
     )
 }
 
-export default DeleteType
+export default DeleteEvent

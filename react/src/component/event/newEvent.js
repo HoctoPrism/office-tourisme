@@ -4,26 +4,26 @@ import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import axios from "axios";
 
-function NewType(props) {
+function NewEvent(props) {
 
     const [id, setID] = useState("");
     const [name, setName] = useState("");
-    const [newType, setShowNew] = useState(false);
+    const [newEvent, setShowNew] = useState(false);
     // Handle Toast event
     const [toast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState({});
     const { register, control, handleSubmit, formState: { errors } } = useForm({defaultValues: {name: ''}});
 
-    let newTypeForm = async () => {
+    let newEventForm = async () => {
         try {
-            let res = await axios.post('http://127.0.0.1:8000/api/types/', {name})
+            let res = await axios.post('http://127.0.0.1:8000/api/events/', {name})
             if (res.status === 200) {
                 let tab = {};
                 await Object.assign(tab, res.data.data);
                 let data = update(props.newValue.data, {$push: [{id : tab.id, name: tab.name}]})
                 props.handleDataChange(data);
                 setName("");
-                setToastMessage({message: "Type ajouté ! Vous pouvez en ajouter un autre", severity: "success"});
+                setToastMessage({message: "Event ajouté ! Vous pouvez en ajouter un autre", severity: "success"});
                 setShowToast(true);
             } else {
                 setToastMessage({message: "Une erreur est survenue", severity: "error"});
@@ -38,14 +38,14 @@ function NewType(props) {
         <Modal
             id="modal-crud-container"
             hideBackdrop
-            open={newType}
+            open={newEvent}
             onClose={() => setShowNew(false)}
-            aria-labelledby="new-type-title"
+            aria-labelledby="new-event-title"
             aria-describedby="child-modal-description"
         >
             <Box className="modal-crud" sx={{bgcolor: 'background.default'}}>
-                <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="new-type-title">Nouveau type de lieux</Typography>
-                <form onSubmit={handleSubmit(newTypeForm)}>
+                <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="new-event-title">Nouvel event</Typography>
+                <form onSubmit={handleSubmit(newEventForm)}>
                     <FormControl>
                         <Controller
                           name="name"
@@ -96,4 +96,4 @@ function NewType(props) {
     )
 }
 
-export default NewType;
+export default NewEvent;

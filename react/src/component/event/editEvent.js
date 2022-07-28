@@ -5,25 +5,25 @@ import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import axios from "axios";
 
-function EditType(props) {
+function EditEvent(props) {
     const [id, setID] = useState("");
     const [name, setName] = useState("");
-    const [oneType, setOneType] = useState(""); // get parking
-    const [editType, setShowEdit] = useState(false);
+    const [oneEvent, setOneEvent] = useState(""); // get parking
+    const [editEvent, setShowEdit] = useState(false);
     const [toast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState({});
 
     const { register, control, handleSubmit, formState: { errors } } = useForm({ defaultValues: {name: props.updateValue.name} });
 
-    let editTypeForm = async () => {
+    let editEventForm = async () => {
         try {
             let updatedPark = {
-                id: id ? id : parseInt(oneType.id),
-                name: name ? name : oneType.name,
+                id: id ? id : parseInt(oneEvent.id),
+                name: name ? name : oneEvent.name,
             }
-            let res = await axios.patch("http://127.0.0.1:8000/api/types/" + oneType.id, {name})
+            let res = await axios.patch("http://127.0.0.1:8000/api/events/" + oneEvent.id, {name})
             if (res.status === 200) {
-                const foundIndex = props.updateValue.data.findIndex(x => x.id === oneType.id);
+                const foundIndex = props.updateValue.data.findIndex(x => x.id === oneEvent.id);
                 let data = update(props.updateValue.data, {[foundIndex]: {$set: updatedPark}})
                 props.handleDataChange(data, 'edit');
                 setShowEdit(false)
@@ -41,21 +41,21 @@ function EditType(props) {
           <Button color='info' variant='contained' sx={{mx: 2}}
             onClick={() => {
                 setShowEdit(true)
-                setOneType({id: props.updateValue.id, name: props.updateValue.name})
+                setOneEvent({id: props.updateValue.id, name: props.updateValue.name})
             }}>
               <Edit/>
           </Button>
          <Modal
             id="modal-crud-container"
             hideBackdrop
-            open={editType}
+            open={editEvent}
             onClose={() => setShowEdit(false)}
-            aria-labelledby="edit-type-title"
+            aria-labelledby="edit-event-title"
             aria-describedby="child-modal-description"
         >
             <Box className="modal-crud" sx={{bgcolor: 'background.default'}}>
-                <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="edit-type-title">Editer un type de lieux</Typography>
-                <form onSubmit={handleSubmit(editTypeForm)}>
+                <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="edit-event-title">Editer un event</Typography>
+                <form onSubmit={handleSubmit(editEventForm)}>
                     <FormControl>
                           <Controller
                               name="name"
@@ -101,4 +101,4 @@ function EditType(props) {
      </Box>
     )
 }
-export default EditType;
+export default EditEvent;
