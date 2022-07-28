@@ -8,7 +8,7 @@ import axios from "axios";
 function EditType(props) {
     const [id, setID] = useState("");
     const [name, setName] = useState("");
-    const [oneType, setOneType] = useState(""); // get parking
+    const [oneType, setOneType] = useState("");
     const [editType, setShowEdit] = useState(false);
     const [toast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState({});
@@ -17,14 +17,14 @@ function EditType(props) {
 
     let editTypeForm = async () => {
         try {
-            let updatedPark = {
+            let updatedType = {
                 id: id ? id : parseInt(oneType.id),
                 name: name ? name : oneType.name,
             }
             let res = await axios.patch("http://127.0.0.1:8000/api/types/" + oneType.id, {name})
             if (res.status === 200) {
                 const foundIndex = props.updateValue.data.findIndex(x => x.id === oneType.id);
-                let data = update(props.updateValue.data, {[foundIndex]: {$set: updatedPark}})
+                let data = update(props.updateValue.data, {[foundIndex]: {$set: updatedType}})
                 props.handleDataChange(data, 'edit');
                 setShowEdit(false)
             } else {

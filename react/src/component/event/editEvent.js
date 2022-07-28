@@ -8,7 +8,7 @@ import axios from "axios";
 function EditEvent(props) {
     const [id, setID] = useState("");
     const [name, setName] = useState("");
-    const [oneEvent, setOneEvent] = useState(""); // get parking
+    const [oneEvent, setOneEvent] = useState("");
     const [editEvent, setShowEdit] = useState(false);
     const [toast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState({});
@@ -17,14 +17,14 @@ function EditEvent(props) {
 
     let editEventForm = async () => {
         try {
-            let updatedPark = {
+            let updatedEvent = {
                 id: id ? id : parseInt(oneEvent.id),
                 name: name ? name : oneEvent.name,
             }
             let res = await axios.patch("http://127.0.0.1:8000/api/events/" + oneEvent.id, {name})
             if (res.status === 200) {
                 const foundIndex = props.updateValue.data.findIndex(x => x.id === oneEvent.id);
-                let data = update(props.updateValue.data, {[foundIndex]: {$set: updatedPark}})
+                let data = update(props.updateValue.data, {[foundIndex]: {$set: updatedEvent}})
                 props.handleDataChange(data, 'edit');
                 setShowEdit(false)
             } else {

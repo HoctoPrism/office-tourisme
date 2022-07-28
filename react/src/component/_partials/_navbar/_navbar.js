@@ -15,6 +15,7 @@ export function Navbar() {
                     <Button color="secondary" href='/'>Accueil</Button>
                     <Button color="secondary" href='type'>Type</Button>
                     <Button color="secondary" href='event'>Event</Button>
+                    <Button color="secondary" href='schedule'>Schedule</Button>
                     <SwitchModeButton/>
                 </Box>
             </AppBar>

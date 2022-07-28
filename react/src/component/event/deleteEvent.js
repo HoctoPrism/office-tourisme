@@ -6,7 +6,7 @@ import axios from "axios";
 
 function DeleteEvent(props) {
 
-    const [oneEvent, setOneEvent] = useState(""); // get parking
+    const [oneEvent, setOneEvent] = useState("");
     const [delEvent, setShowDelete] = useState(false);
     const [toast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState({});
