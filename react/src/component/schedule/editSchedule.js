@@ -8,6 +8,8 @@ import axios from "axios";
 function EditSchedule(props) {
     const [id, setID] = useState("");
 
+    const [name, setName] = useState(props.updateValue.name);
+
     const [monday_start, setMondayStart] = useState(props.updateValue.monday_start);
     const [monday_end, setMondayEnd] = useState(props.updateValue.monday_end);
 
@@ -36,6 +38,7 @@ function EditSchedule(props) {
 
     const { register, control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
+            name: props.updateValue.name,
             monday_start: props.updateValue.monday_start,
             monday_end: props.updateValue.monday_end,
             tuesday_start: props.updateValue.tuesday_start,
@@ -57,6 +60,7 @@ function EditSchedule(props) {
         try {
             let updatedSchedule = {
                 id: id ? id : parseInt(oneSchedule.id),
+                name: name,
                 monday_start: monday_start,
                 monday_end: monday_end,
                 tuesday_start: tuesday_start,
@@ -94,6 +98,7 @@ function EditSchedule(props) {
                 setShowEdit(true)
                 setOneSchedule({
                     id: props.updateValue.id,
+                    name: props.updateValue.name,
                     monday_start: props.updateValue.monday_start, monday_end: props.updateValue.monday_end,
                     tuesday_start: props.updateValue.tuesday_start, tuesday_end: props.updateValue.tuesday_end,
                     wednesday_start: props.updateValue.wednesday_start, wednesday_end: props.updateValue.wednesday_end,
@@ -116,6 +121,22 @@ function EditSchedule(props) {
             <Box className="modal-crud modal-crud-schedule" sx={{bgcolor: 'background.default'}}>
                 <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="edit-schedule-title">Editer un schedule</Typography>
                 <form onSubmit={handleSubmit(editScheduleForm)}>
+                    <Box sx={{ display: 'flex', mb: 5 }}>
+                        <Controller
+                          name="name"
+                          control={control}
+                          render={() => (
+                              <TextField
+                               {...register('name')}
+                                label="Nom"
+                                defaultValue={name}
+                                variant='outlined'
+                                onChange={(e) => setName(e.target.value)}
+                                sx={{ width: 150, mr: 5 }}
+                              />
+                          )}
+                        />
+                    </Box>
                     <Box sx={{ display: 'flex', mb: 5 }}>
                         <Controller
                           name="monday_start"

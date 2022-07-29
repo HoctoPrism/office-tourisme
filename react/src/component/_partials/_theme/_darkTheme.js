@@ -105,6 +105,18 @@ export const darkTheme = {
                 }
             }
         },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    ".MuiOutlinedInput-notchedOutline": {
+                        borderColor: '#c4c6c8'
+                    },
+                    ".MuiSelect-iconOutlined": {
+                        fill: '#c4c6c8'
+                    }
+                }
+            }
+        },
         MuiButton: {
             styleOverrides: {
                 root: {

@@ -79,21 +79,23 @@ function Schedule() {
                             <TableHead>
                                 <TableRow>
                                     <TableCell key={1}>ID</TableCell>
-                                    <TableCell key={2}>Lundi</TableCell>
-                                    <TableCell key={3}>Mardi</TableCell>
-                                    <TableCell key={4}>Mercredi</TableCell>
-                                    <TableCell key={5}>Jeudi</TableCell>
-                                    <TableCell key={6}>Vendredi</TableCell>
-                                    <TableCell key={7}>Samedi</TableCell>
-                                    <TableCell key={8}>Dimanche</TableCell>
-                                    <TableCell key={9} align={'right'}>Actions</TableCell>
+                                    <TableCell key={2}>Nom</TableCell>
+                                    <TableCell key={3}>Lundi</TableCell>
+                                    <TableCell key={4}>Mardi</TableCell>
+                                    <TableCell key={5}>Mercredi</TableCell>
+                                    <TableCell key={6}>Jeudi</TableCell>
+                                    <TableCell key={7}>Vendredi</TableCell>
+                                    <TableCell key={8}>Samedi</TableCell>
+                                    <TableCell key={9}>Dimanche</TableCell>
+                                    <TableCell key={10} align={'right'}>Actions</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(({id, monday_start, monday_end, tuesday_start, tuesday_end, wednesday_start, wednesday_end, thursday_start, thursday_end, friday_start, friday_end, saturday_start, saturday_end, sunday_start, sunday_end}) => {
+                                {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(({id, name, monday_start, monday_end, tuesday_start, tuesday_end, wednesday_start, wednesday_end, thursday_start, thursday_end, friday_start, friday_end, saturday_start, saturday_end, sunday_start, sunday_end}) => {
                                     return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} key={monday_start+id}>
+                                        <TableRow hover role="checkbox" tabIndex={-1} key={name+id}>
                                             <TableCell>{id}</TableCell>
+                                            <TableCell>{name}</TableCell>
                                             <TableCell>{monday_start ? monday_start.substring(5,0) : '--:--'} à {monday_end ? monday_end.substring(5,0) : '--:--'}</TableCell>
                                             <TableCell>{tuesday_start ? tuesday_start.substring(5,0) : '--:--'} à {tuesday_end ? tuesday_end.substring(5,0) : '--:--'}</TableCell>
                                             <TableCell>{wednesday_start ? wednesday_start.substring(5,0) : '--:--'} à {wednesday_end ? wednesday_end.substring(5,0) : '--:--'}</TableCell>
@@ -103,7 +105,7 @@ function Schedule() {
                                             <TableCell>{sunday_start ? sunday_start.substring(5,0) : '--:--'} à {sunday_end ? sunday_end.substring(5,0) : '--:--'}</TableCell>
                                             <TableCell>
                                                 <Box sx={{display: 'flex', justifyContent: 'right'}}>
-                                                    <EditSchedule updateValue={{id, monday_start, monday_end, tuesday_start, tuesday_end, wednesday_start, wednesday_end, thursday_start, thursday_end, friday_start, friday_end, saturday_start, saturday_end, sunday_start, sunday_end, data}} handleDataChange={handleDataChange} />
+                                                    <EditSchedule updateValue={{id, name, monday_start, monday_end, tuesday_start, tuesday_end, wednesday_start, wednesday_end, thursday_start, thursday_end, friday_start, friday_end, saturday_start, saturday_end, sunday_start, sunday_end, data}} handleDataChange={handleDataChange} />
                                                     <DeleteSchedule deleteValue={{id, data}} handleDataChange={handleDataChange}/>
                                                 </Box>
                                             </TableCell>

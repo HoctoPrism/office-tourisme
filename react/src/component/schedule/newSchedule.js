@@ -7,6 +7,7 @@ import axios from "axios";
 function NewSchedule(props) {
 
     const [id, setID] = useState("");
+    const [name, setName] = useState("");
     const [monday_start, setMondayStart] = useState("");
     const [monday_end, setMondayEnd] = useState("");
     const [tuesday_start, setTuesdayStart] = useState("");
@@ -28,6 +29,7 @@ function NewSchedule(props) {
     const { register, control, handleSubmit, formState: { errors } } = useForm({});
 
     let reset = () => {
+        setName('');
         setMondayStart('');
         setMondayEnd('');
         setTuesdayStart('');
@@ -47,6 +49,7 @@ function NewSchedule(props) {
     let newScheduleForm = async () => {
         try {
             let newSchedule = {
+                name: name,
                 monday_start: monday_start,
                 monday_end: monday_end,
                 tuesday_start: tuesday_start,
@@ -69,6 +72,7 @@ function NewSchedule(props) {
                 await Object.assign(tab, res.data.data);
                 let data = update(props.newValue.data, {$push: [{
                     id : tab.id,
+                    name: tab.name,
                     monday_start: tab.monday_start, monday_end: tab.monday_end,
                     tuesday_start: tab.tuesday_start, tuesday_end: tab.tuesday_end,
                     wednesday_start: tab.wednesday_start, wednesday_end: tab.wednesday_end,
@@ -103,6 +107,22 @@ function NewSchedule(props) {
                 <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="new-schedule-title">Nouvel schedule</Typography>
                 <form onSubmit={handleSubmit(newScheduleForm)}>
                     <FormControl>
+                        <Box sx={{ display: 'flex', mb: 5 }}>
+                        <Controller
+                          name="name"
+                          control={control}
+                          render={() => (
+                              <TextField
+                               {...register('name')}
+                                label="Nom"
+                                defaultValue={name}
+                                variant='outlined'
+                                onChange={(e) => setName(e.target.value)}
+                                sx={{ width: 150, mr: 5 }}
+                              />
+                          )}
+                        />
+                    </Box>
                         <Box sx={{ display: 'flex', mb: 5 }}>
                             <Controller
                               name="monday_start"

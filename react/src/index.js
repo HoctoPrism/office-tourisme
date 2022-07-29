@@ -20,6 +20,7 @@ import App from './App';
 import Home from "./component/home/home";
 import Type from "./component/type/type";
 import Event from "./component/event/event";
+import Place from "./component/place/place";
 import {Navbar} from "./component/_partials/_navbar/_navbar";
 import {Footer} from "./component/_partials/_footer/_footer";
 import Schedule from "./component/schedule/schedule";
@@ -59,10 +60,11 @@ function CustomTheme() {
             <BrowserRouter>
                 <Routes>
                     <Route exact path="/" element={<RouteService Component={Home}/>}>Accueil</Route>
+                    <Route exact path="place" element={<RouteService Component={Place}/>}>Place</Route>
+                    <Route exact path="address" element={<RouteService Component={Address}/>}>Address</Route>
+                    <Route exact path="schedule" element={<RouteService Component={Schedule}/>}>Schedule</Route>
                     <Route exact path="type" element={<RouteService Component={Type}/>}>Type</Route>
                     <Route exact path="event" element={<RouteService Component={Event}/>}>Event</Route>
-                    <Route exact path="schedule" element={<RouteService Component={Schedule}/>}>Schedule</Route>
-                    <Route exact path="address" element={<RouteService Component={Address}/>}>Address</Route>
                     <Route path="*" element={
                         <div>
                             <p>Il n'y a rien ici !</p>
