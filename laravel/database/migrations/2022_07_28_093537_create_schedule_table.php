@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('name');
             $table->time('monday_start')->nullable();
             $table->time('monday_end')->nullable();
             $table->time('tuesday_start')->nullable();

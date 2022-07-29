@@ -18,10 +18,10 @@ return new class extends Migration
             $table->text('name');
             $table->text('description');
             $table->text('image')->nullable();
-            $table->foreignId('type');
-            $table->foreignId('event');
+            $table->foreignId('type')->nullable();
+            $table->foreignId('event')->nullable();
             $table->foreignId('address');
-            $table->foreignId('schedule');
+            $table->foreignId('schedule')->nullable();
             $table->timestamps();
         });
     }

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\EventController;
-use App\Http\Controllers\API\EventDatetimeController;
+use App\Http\Controllers\API\PlaceController;
 use App\Http\Controllers\API\ScheduleController;
 use App\Http\Controllers\API\TypeController;
 use Illuminate\Http\Request;
@@ -27,4 +27,4 @@ Route::apiResource("types", TypeController::class);
 Route::apiResource("events", EventController::class);
 Route::apiResource("schedules", ScheduleController::class);
 Route::apiResource("addresses", AddressController::class);
-Route::apiResource("eventdatetimes", EventDatetimeController::class);
+Route::apiResource("places", PlaceController::class);

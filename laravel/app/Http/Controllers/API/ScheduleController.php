@@ -37,7 +37,12 @@ class ScheduleController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        $this->validate($request ,[
+            'name' => 'required|max:100',
+        ]);
+
         $schedule = Schedule::create([
+            'name' => $request->name,
             'monday_start' => $request->monday_start,
             'monday_end' => $request->monday_end,
             'tuesday_start' => $request->tuesday_start,
@@ -81,7 +86,12 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, Schedule $schedule): JsonResponse
     {
+        $this->validate($request ,[
+            'name' => 'required|max:100',
+        ]);
+
         $schedule->update([
+            'name' => $request->name,
             'monday_start' => $request->monday_start,
             'monday_end' => $request->monday_end,
             'tuesday_start' => $request->tuesday_start,
