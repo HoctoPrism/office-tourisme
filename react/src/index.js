@@ -24,6 +24,8 @@ import {Navbar} from "./component/_partials/_navbar/_navbar";
 import {Footer} from "./component/_partials/_footer/_footer";
 import Schedule from "./component/schedule/schedule";
 import Address from "./component/address/address";
+import eventdatetime from "./component/eventdatetime/eventdatetime";
+import EventDatetime from "./component/eventdatetime/eventdatetime";
 
 function CustomTheme() {
 
@@ -60,9 +62,10 @@ function CustomTheme() {
                 <Routes>
                     <Route exact path="/" element={<RouteService Component={Home}/>}>Accueil</Route>
                     <Route exact path="type" element={<RouteService Component={Type}/>}>Type</Route>
-                    <Route exact path="event" element={<RouteService Component={Event}/>}>Type</Route>
-                    <Route exact path="schedule" element={<RouteService Component={Schedule}/>}>Type</Route>
-                    <Route exact path="address" element={<RouteService Component={Address}/>}>Type</Route>
+                    <Route exact path="event" element={<RouteService Component={Event}/>}>Event</Route>
+                    <Route exact path="schedule" element={<RouteService Component={Schedule}/>}>Schedule</Route>
+                    <Route exact path="address" element={<RouteService Component={Address}/>}>Address</Route>
+                    <Route exact path="eventdatetime" element={<RouteService Component={EventDatetime}/>}>EventDatetime</Route>
                     <Route path="*" element={
                         <div>
                             <p>Il n'y a rien ici !</p>
