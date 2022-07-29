@@ -39,10 +39,14 @@ class EventController extends Controller
     {
         $this->validate($request ,[
             'name' => 'required|max:100',
+            'date_start' => 'required',
+            'date_end' => 'required',
         ]);
 
         $event = Event::create([
             'name' => $request->name,
+            'date_start' => $request->date_start,
+            'date_end' => $request->date_end,
         ]);
 
         return response()->json([
@@ -73,11 +77,15 @@ class EventController extends Controller
     public function update(Request $request, Event $event): JsonResponse
     {
         $this->validate($request, [
-            'name' => 'required|max:100'
+            'name' => 'required|max:100',
+            'date_start' => 'required',
+            'date_end' => 'required',
         ]);
 
         $event->update([
-            'name' => $request->name
+            'name' => $request->name,
+            'date_start' => $request->date_start,
+            'date_end' => $request->date_end,
         ]);
 
         return response()->json([

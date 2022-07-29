@@ -10,15 +10,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Event extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'datetime'];
+    protected $fillable = ['name', 'date_start', 'date_end'];
 
     public function place(): HasMany
     {
         return $this->HasMany(Place::class);
-    }
-
-    public function eventDateTime(): BelongsTo
-    {
-        return $this->BelongsTo(EventDatetime::class, 'datetime');
     }
 }
