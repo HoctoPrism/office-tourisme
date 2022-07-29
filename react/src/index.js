@@ -23,6 +23,7 @@ import Event from "./component/event/event";
 import {Navbar} from "./component/_partials/_navbar/_navbar";
 import {Footer} from "./component/_partials/_footer/_footer";
 import Schedule from "./component/schedule/schedule";
+import Address from "./component/address/address";
 
 function CustomTheme() {
 
@@ -61,6 +62,7 @@ function CustomTheme() {
                     <Route exact path="type" element={<RouteService Component={Type}/>}>Type</Route>
                     <Route exact path="event" element={<RouteService Component={Event}/>}>Type</Route>
                     <Route exact path="schedule" element={<RouteService Component={Schedule}/>}>Type</Route>
+                    <Route exact path="address" element={<RouteService Component={Address}/>}>Type</Route>
                     <Route path="*" element={
                         <div>
                             <p>Il n'y a rien ici !</p>

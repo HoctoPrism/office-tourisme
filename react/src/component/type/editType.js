@@ -53,7 +53,7 @@ function EditType(props) {
             aria-labelledby="edit-type-title"
             aria-describedby="child-modal-description"
         >
-            <Box className="modal-crud" sx={{bgcolor: 'background.default'}}>
+            <Box className="modal-crud modal-crud-type" sx={{bgcolor: 'background.default'}}>
                 <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="edit-type-title">Editer un type de lieux</Typography>
                 <form onSubmit={handleSubmit(editTypeForm)}>
                     <FormControl>

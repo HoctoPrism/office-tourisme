@@ -47,7 +47,7 @@ function DeleteEvent(props) {
                 aria-labelledby="delete-event-title"
                 aria-describedby="child-modal-description"
             >
-                <Box className="modal-crud" sx={{bgcolor: 'background.default'}}>
+                <Box className="modal-crud modal-crud-event" sx={{bgcolor: 'background.default'}}>
                     <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="delete-event-title">Supprimer un event</Typography>
                     <FormControl>
                         <Box>

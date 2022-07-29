@@ -7,20 +7,28 @@ import axios from "axios";
 
 function EditSchedule(props) {
     const [id, setID] = useState("");
-    const [monday_start, setMondayStart] = useState("");
-    const [monday_end, setMondayEnd] = useState("");
-    const [tuesday_start, setTuesdayStart] = useState("");
-    const [tuesday_end, setTuesdayEnd] = useState("");
-    const [wednesday_start, setWednesdayStart] = useState("");
-    const [wednesday_end, setWednesdayEnd] = useState("");
-    const [thursday_start, setThursdayStart] = useState("");
-    const [thursday_end, setThursdayEnd] = useState("");
-    const [friday_start, setFridayStart] = useState("");
-    const [friday_end, setFridayEnd] = useState("");
-    const [saturday_start, setSaturdayStart] = useState("");
-    const [saturday_end, setSaturdayEnd] = useState("");
-    const [sunday_start, setSundayStart] = useState("");
-    const [sunday_end, setSundayEnd] = useState("");
+
+    const [monday_start, setMondayStart] = useState(props.updateValue.monday_start);
+    const [monday_end, setMondayEnd] = useState(props.updateValue.monday_end);
+
+    const [tuesday_start, setTuesdayStart] = useState(props.updateValue.tuesday_start);
+    const [tuesday_end, setTuesdayEnd] = useState(props.updateValue.tuesday_end);
+
+    const [wednesday_start, setWednesdayStart] = useState(props.updateValue.wednesday_start);
+    const [wednesday_end, setWednesdayEnd] = useState(props.updateValue.wednesday_end);
+
+    const [thursday_start, setThursdayStart] = useState(props.updateValue.thursday_start);
+    const [thursday_end, setThursdayEnd] = useState(props.updateValue.thursday_end);
+
+    const [friday_start, setFridayStart] = useState(props.updateValue.friday_start);
+    const [friday_end, setFridayEnd] = useState(props.updateValue.friday_end);
+
+    const [saturday_start, setSaturdayStart] = useState(props.updateValue.saturday_start);
+    const [saturday_end, setSaturdayEnd] = useState(props.updateValue.saturday_end);
+
+    const [sunday_start, setSundayStart] = useState(props.updateValue.sunday_start);
+    const [sunday_end, setSundayEnd] = useState(props.updateValue.sunday_end);
+
     const [oneSchedule, setOneSchedule] = useState("");
     const [editSchedule, setShowEdit] = useState(false);
     const [toast, setShowToast] = useState(false);
@@ -49,20 +57,20 @@ function EditSchedule(props) {
         try {
             let updatedSchedule = {
                 id: id ? id : parseInt(oneSchedule.id),
-                monday_start: monday_start === "" ? props.updateValue.monday_start : monday_start,
-                monday_end: monday_end === "" ? oneSchedule.monday_end : monday_end,
-                tuesday_start: tuesday_start === "" ? oneSchedule.tuesday_start : tuesday_start,
-                tuesday_end: tuesday_end === "" ? oneSchedule.tuesday_end : tuesday_end,
-                wednesday_start: wednesday_start === "" ? oneSchedule.wednesday_start : wednesday_start,
-                wednesday_end: wednesday_end === "" ? oneSchedule.wednesday_end : wednesday_end,
-                thursday_start: thursday_start === "" ? oneSchedule.thursday_start : thursday_start,
-                thursday_end: thursday_end === "" ? oneSchedule.thursday_end : thursday_end,
-                friday_start: friday_start === "" ? oneSchedule.friday_start : friday_start,
-                friday_end: friday_end === "" ? oneSchedule.friday_end : friday_end,
-                saturday_start: saturday_start === "" ? oneSchedule.saturday_start : saturday_start,
-                saturday_end: saturday_end === "" ? oneSchedule.saturday_end : saturday_end,
-                sunday_start: sunday_start === "" ? oneSchedule.sunday_start : sunday_start,
-                sunday_end: sunday_end === "" ? oneSchedule.sunday_end : sunday_end,
+                monday_start: monday_start,
+                monday_end: monday_end,
+                tuesday_start: tuesday_start,
+                tuesday_end: tuesday_end,
+                wednesday_start: wednesday_start,
+                wednesday_end: wednesday_end,
+                thursday_start: thursday_start,
+                thursday_end: thursday_end,
+                friday_start: friday_start,
+                friday_end: friday_end,
+                saturday_start: saturday_start,
+                saturday_end: saturday_end,
+                sunday_start: sunday_start,
+                sunday_end: sunday_end,
             }
             let res = await axios.patch("http://127.0.0.1:8000/api/schedules/" + oneSchedule.id, updatedSchedule)
             if (res.status === 200) {
@@ -105,7 +113,7 @@ function EditSchedule(props) {
             aria-labelledby="edit-schedule-title"
             aria-describedby="child-modal-description"
         >
-            <Box className="modal-crud" sx={{bgcolor: 'background.default'}}>
+            <Box className="modal-crud modal-crud-schedule" sx={{bgcolor: 'background.default'}}>
                 <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="edit-schedule-title">Editer un schedule</Typography>
                 <form onSubmit={handleSubmit(editScheduleForm)}>
                     <Box sx={{ display: 'flex', mb: 5 }}>

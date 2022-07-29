@@ -47,7 +47,7 @@ function DeleteType(props) {
                 aria-labelledby="delete-type-title"
                 aria-describedby="child-modal-description"
             >
-                <Box className="modal-crud" sx={{bgcolor: 'background.default'}}>
+                <Box className="modal-crud modal-crud-type" sx={{bgcolor: 'background.default'}}>
                     <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="delete-type-title">Supprimer un type de
                         lieux</Typography>
                     <FormControl>

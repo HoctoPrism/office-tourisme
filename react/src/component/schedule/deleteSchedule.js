@@ -58,7 +58,7 @@ function DeleteSchedule(props) {
                 aria-labelledby="delete-schedule-title"
                 aria-describedby="child-modal-description"
             >
-                <Box className="modal-crud" sx={{bgcolor: 'background.default'}}>
+                <Box className="modal-crud modal-crud-schedule" sx={{bgcolor: 'background.default'}}>
                     <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="delete-schedule-title">Supprimer un schedule</Typography>
                     <FormControl>
                         <Box>êtes vous sur de vouloir supprimer ce schedule ? <Box component='span' sx={{ fontWeight: 'bold'}}>ID : {oneSchedule.id}</Box></Box>

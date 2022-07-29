@@ -99,7 +99,7 @@ function NewSchedule(props) {
             aria-labelledby="new-schedule-title"
             aria-describedby="child-modal-description"
         >
-            <Box className="modal-crud" sx={{bgcolor: 'background.default'}}>
+            <Box className="modal-crud modal-crud-schedule" sx={{bgcolor: 'background.default'}}>
                 <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="new-schedule-title">Nouvel schedule</Typography>
                 <form onSubmit={handleSubmit(newScheduleForm)}>
                     <FormControl>

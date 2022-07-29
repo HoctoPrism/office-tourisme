@@ -53,7 +53,7 @@ function EditEvent(props) {
             aria-labelledby="edit-event-title"
             aria-describedby="child-modal-description"
         >
-            <Box className="modal-crud" sx={{bgcolor: 'background.default'}}>
+            <Box className="modal-crud modal-crud-event" sx={{bgcolor: 'background.default'}}>
                 <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="edit-event-title">Editer un event</Typography>
                 <form onSubmit={handleSubmit(editEventForm)}>
                     <FormControl>

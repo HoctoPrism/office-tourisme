@@ -43,7 +43,7 @@ function NewType(props) {
             aria-labelledby="new-type-title"
             aria-describedby="child-modal-description"
         >
-            <Box className="modal-crud" sx={{bgcolor: 'background.default'}}>
+            <Box className="modal-crud modal-crud-type" sx={{bgcolor: 'background.default'}}>
                 <Typography variant="h4" sx={{textAlign: 'center', mb: 4}} id="new-type-title">Nouveau type de lieux</Typography>
                 <form onSubmit={handleSubmit(newTypeForm)}>
                     <FormControl>
