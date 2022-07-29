@@ -34,7 +34,7 @@ function DeleteEvent(props) {
                 sx={{mx: 2}}
                 onClick={ () => {
                     setShowDelete(true)
-                    setOneEvent({id: props.deleteValue.id, name: props.deleteValue.name} )
+                    setOneEvent({id: props.deleteValue.id, name: props.deleteValue.name, date_start: props.deleteValue.date_start, date_end: props.deleteValue.date_end} )
                 } }
             >
                 <DeleteForeverRounded/>
@@ -52,6 +52,9 @@ function DeleteEvent(props) {
                     <FormControl>
                         <Box>
                             êtes vous sur de vouloir supprimer l'event : {oneEvent.name}?
+                        </Box>
+                        <Box sx={{ my: 5}}>
+                            <Box component='span' sx={{ fontWeight: 'bold' }}>{oneEvent.date_start}</Box> --- <Box component='span' sx={{ fontWeight: 'bold' }}>{oneEvent.date_end}</Box>
                         </Box>
                         <Box className="action-button">
                             <Button sx={{m: 3}} type="submit" variant="contained" onClick={deleteEvent}>Envoyer</Button>

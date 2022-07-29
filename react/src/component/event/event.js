@@ -80,19 +80,23 @@ function Event() {
                                 <TableRow>
                                     <TableCell key={1}>ID</TableCell>
                                     <TableCell key={2}>Nom</TableCell>
-                                    <TableCell key={3} align={'right'}>Actions</TableCell>
+                                    <TableCell key={3}>Date de début</TableCell>
+                                    <TableCell key={4}>Date de fin</TableCell>
+                                    <TableCell key={5} align={'right'}>Actions</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(({id, name}) => {
+                                {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(({id, name, date_start, date_end}) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={name+id}>
                                             <TableCell>{id}</TableCell>
                                             <TableCell sx={{fontWeight: 'bold'}}>{name}</TableCell>
+                                            <TableCell sx={{fontWeight: 'bold'}}>{date_start ? date_start.substring(date_start.length - 3, -3) : '--:--'}</TableCell>
+                                            <TableCell sx={{fontWeight: 'bold'}}>{date_end ? date_end.substring(date_start.length - 3, -3) : '--:--'}</TableCell>
                                             <TableCell>
                                                 <Box sx={{display: 'flex', justifyContent: 'right'}}>
-                                                    <EditEvent updateValue={{id, name, data}} handleDataChange={handleDataChange} />
-                                                    <DeleteEvent deleteValue={{id, name, data}} handleDataChange={handleDataChange}/>
+                                                    <EditEvent updateValue={{id, name, date_start, date_end, data}} handleDataChange={handleDataChange} />
+                                                    <DeleteEvent deleteValue={{id, name, date_start, date_end, data}} handleDataChange={handleDataChange}/>
                                                 </Box>
                                             </TableCell>
                                         </TableRow>
