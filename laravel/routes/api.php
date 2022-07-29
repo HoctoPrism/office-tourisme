@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\EventController;
 use App\Http\Controllers\API\ScheduleController;
 use App\Http\Controllers\API\TypeController;
@@ -24,3 +25,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource("types", TypeController::class);
 Route::apiResource("events", EventController::class);
 Route::apiResource("schedules", ScheduleController::class);
+Route::apiResource("addresses", AddressController::class);
