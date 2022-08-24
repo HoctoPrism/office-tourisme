@@ -72,8 +72,22 @@ function NewPlace(props) {
 
     let newPlaceForm = async () => {
         try {
+
+            let formData = new FormData();
+
+            formData.append("name", name);
+            formData.append("description", description);
+            formData.append("image", image);
+            formData.append("type", `${type}`);
+            formData.append("event", `${event}`);
+            formData.append("schedule", `${schedule}`);
+            formData.append("address", `${address}`);
+
             let newPlace = {name: name, description: description, image: image, type: type, event: event, schedule: schedule, address: address};
-            let res = await axios.post('http://127.0.0.1:8000/api/places/', newPlace);
+
+            let res = await axios.post('http://127.0.0.1:8000/api/places/', formData, {
+                "headers" : { "Content-Type":"multipart/form-data" }
+            });
             if (res.status === 200) {
                 let tab = {};
                 await Object.assign(tab, res.data.data);
@@ -163,13 +177,11 @@ function NewPlace(props) {
                               control={control}
                               defaultValue=""
                               render={() => (
-                                  <TextField
+                                  <Input
+                                   type='file'
                                    {...register('image')}
-                                   onChange={(e) => setImage(e.target.value)}
+                                   onChange={(e) => setImage(e.target.files[0]) }
                                    sx={{mt: 5, height: 50}}
-                                   label="Image"
-                                   variant="standard"
-                                   value={image}
                                 />
                               )}
                             />

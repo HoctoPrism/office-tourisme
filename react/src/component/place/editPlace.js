@@ -9,7 +9,7 @@ import {
     Alert,
     Grid,
     MenuItem,
-    Select, InputLabel
+    Select, InputLabel, Input
 } from "@mui/material";
 import {Edit} from "@mui/icons-material";
 import {useEffect, useState} from "react";
@@ -21,12 +21,14 @@ function EditPlace(props) {
     const [id, setID] = useState("");
     const [name, setName] = useState(props.updateValue.name);
     const [description, setDescription] = useState(props.updateValue.description);
-    const [image, setImage] = useState(props.updateValue.image);
+    const [image, setImage] = useState('');
+    const [cImage, setCImage] = useState(props.updateValue.image);
+
     // One of ...
-    const [event, setEvent] = useState(props.updateValue.event);
-    const [type, setType] = useState(props.updateValue.type);
-    const [schedule, setSchedule] = useState(props.updateValue.schedule);
-    const [address, setAddress] = useState(props.updateValue.address);
+    const [event, setEvent] = useState(undefined);
+    const [type, setType] = useState(undefined);
+    const [schedule, setSchedule] = useState(undefined);
+    const [address, setAddress] = useState(undefined);
     // List All
     const [types, setTypes] = useState({});
     const [schedules, setSchedules] = useState({});
@@ -61,6 +63,23 @@ function EditPlace(props) {
 
     let editPlaceForm = async () => {
         try {
+
+            let formData = new FormData();
+
+            console.log(type)
+            console.log(event)
+
+            formData.append("name",  name);
+            formData.append("description", description);
+            formData.append("type",  type ? `${type}` : `${props.updateValue.type.id}`);
+            formData.append("event", event ? `${event}` : `${props.updateValue.event.id}`);
+            formData.append("schedule", schedule ? `${schedule}` : `${props.updateValue.schedule.id}`);
+            formData.append("address", address ? `${address}` : `${props.updateValue.address.id}`);
+            if (image){
+                formData.append("image", image);
+            }
+            formData.append("_method", 'PATCH');
+
             let updatedPlace = {
                 id: id ? id : parseInt(onePlace.id),
                 name: name ? name : onePlace.name,
@@ -71,14 +90,9 @@ function EditPlace(props) {
                 schedule: schedule ? schedule : onePlace.schedule.id,
                 address: address ? address : onePlace.address.id,
             }
-            let res = await axios.patch("http://127.0.0.1:8000/api/places/" + onePlace.id, {
-                name,
-                description,
-                image,
-                type: type.name ? type.id : type,
-                event: event.name ? event.id : event,
-                schedule: schedule.name ? schedule.id : schedule,
-                address: address.address ? address.id : address
+
+            let res = await axios.post("http://127.0.0.1:8000/api/places/" + onePlace.id, formData, {
+                "headers" : { "Content-Type":"multipart/form-data" }
             })
             if (res.status === 200) {
                 const foundIndex = props.updateValue.data.findIndex(x => x.id === onePlace.id);
@@ -111,6 +125,7 @@ function EditPlace(props) {
                     schedule: props.updateValue.schedule,
                     address: props.updateValue.address
                 })
+                setCImage(props.updateValue.image);
             }}>
               <Edit/>
           </Button>
@@ -181,14 +196,15 @@ function EditPlace(props) {
                               name="image"
                               control={control}
                               render={() => (
-                                  <TextField
-                                   {...register('image')}
-                                   onChange={(e) => setImage(e.target.value)}
-                                   sx={{mt: 5, height: 50}}
-                                   label="Image"
-                                   variant="standard"
-                                   defaultValue={image}
-                                />
+                                  <Box sx={{ display: 'flex'}}>
+                                      <Box component="img" src={`http://127.0.0.1:8000/storage/uploads/${cImage}`} alt={cImage} sx={{ width: "80px", mr: 3 }}/>
+                                      <Input
+                                       type='file'
+                                       {...register('image')}
+                                       onChange={(e) => setImage(e.target.files[0])}
+                                       sx={{mt: 5, height: 50}}
+                                      />
+                                  </Box>
                               )}
                             />
                             {errors.image ? (
@@ -205,7 +221,7 @@ function EditPlace(props) {
                                       <Select
                                         labelId="type-select"
                                         id="type-select"
-                                        defaultValue={type.id}
+                                        defaultValue={props.updateValue.type.id}
                                         label="Type"
                                         onChange={(e) => setType(e.target.value)}
                                         sx={{height: 50}}
@@ -229,7 +245,7 @@ function EditPlace(props) {
                                       <Select
                                         labelId="event-select"
                                         id="event-select"
-                                        defaultValue={event.id}
+                                        defaultValue={props.updateValue.event.id}
                                         label="Event"
                                         onChange={(e) => setEvent(e.target.value)}
                                         sx={{height: 50}}
@@ -253,7 +269,7 @@ function EditPlace(props) {
                                       <Select
                                         labelId="address-select"
                                         id="address-select"
-                                        defaultValue={address.id}
+                                        defaultValue={props.updateValue.address.id}
                                         label="Adresse"
                                         onChange={(e) => setAddress(e.target.value)}
                                         sx={{height: 50}}
@@ -277,7 +293,7 @@ function EditPlace(props) {
                                       <Select
                                         labelId="schedule-select"
                                         id="schedule-select"
-                                        defaultValue={schedule.id}
+                                        defaultValue={props.updateValue.schedule.id}
                                         label="Schedule"
                                         onChange={(e) => setSchedule(e.target.value)}
                                         sx={{height: 50}}

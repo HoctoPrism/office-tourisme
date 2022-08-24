@@ -12,7 +12,7 @@ import {
     TablePagination,
     TableRow,
     Typography,
-    Alert
+    Alert, Avatar
 } from "@mui/material";
 import DeletePlace from "./deletePlace";
 import NewPlace from "./newPlace";
@@ -97,7 +97,13 @@ function Place() {
                                             <TableCell>{id}</TableCell>
                                             <TableCell sx={{fontWeight: 'bold'}}>{name ?? '--'}</TableCell>
                                             <TableCell sx={{fontWeight: 'bold'}}>{description ?? '--'}</TableCell>
-                                            <TableCell sx={{fontWeight: 'bold'}}>{image ?? '--'}</TableCell>
+                                            <TableCell sx={{fontWeight: 'bold'}}>
+                                                { image ? (
+                                                    <Box component="img" src={`http://127.0.0.1:8000/storage/uploads/${image}`} alt={image} sx={{ width: "80px" }}/>
+                                                ) : (
+                                                    '--'
+                                                ) }
+                                            </TableCell>
                                             <TableCell sx={{fontWeight: 'bold'}}>{address.address ?? '--'} {address.city ?? '--'} {address.postal_code ?? '--'}</TableCell>
                                             <TableCell sx={{fontWeight: 'bold'}}>{event.name ?? '--'}</TableCell>
                                             <TableCell sx={{fontWeight: 'bold'}}>{type.name ?? '--'}</TableCell>
