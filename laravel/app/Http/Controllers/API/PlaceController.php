@@ -7,6 +7,7 @@ use App\Models\Place;
 use App\Models\Type;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class PlaceController extends Controller
@@ -43,10 +44,16 @@ class PlaceController extends Controller
             'address' => 'required',
         ]);
 
+        if ($request->hasFile('image')) {
+            $filename = $this->getFilename($request);
+        } else {
+            $filename = Null;
+        }
+
         $place = Place::create([
             'name' => $request->name,
             'description' => $request->description,
-            'image' => $request->image,
+            'image' => $filename,
             'address' => $request->address,
             'event' => $request->event,
             'type' => $request->type,
@@ -92,9 +99,21 @@ class PlaceController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'description' => 'required',
-            'image' => 'nullable' /*'image|nullable|max: 1999'*/,
+            'image' => 'image|nullable|max: 5000',
             'address' => 'required',
         ]);
+
+        if ($request->hasFile('image')) {
+            if (Place::findOrFail($place->id)->image){
+                Storage::delete("/public/uploads/".Place::findOrFail($place->id)->image);
+            }
+            $filename = $this->getFilename($request);
+            $request->image = $filename;
+        }
+
+        if ($request->image == null){
+            $request->image = Place::findOrFail($place->id)->image;
+        }
 
         $place->update([
             'name' => $request->name,
@@ -113,7 +132,8 @@ class PlaceController extends Controller
 
         return response()->json([
             'status' => 'Mise à jour avec success',
-            'data' => $place
+            'data' => $place,
+            'request' => $request->image
         ]);
     }
 
@@ -125,10 +145,28 @@ class PlaceController extends Controller
      */
     public function destroy(Place $place): JsonResponse
     {
+        if ($place->image){
+            Storage::delete("/public/uploads/".$place->image);
+        }
+
         $place->delete();
 
         return response()->json([
             'status' => 'Supprimer avec success'
         ]);
+    }
+
+        /**
+     * @param Request $request
+     * @return string
+     */
+    public function getFilename(Request $request): string
+    {
+        $filenameWithExt = $request->file('image')->getClientOriginalName();
+        $filenameWithoutExt = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $extension = $request->file('image')->getClientOriginalExtension();
+        $filename = $filenameWithoutExt . '_' . time() . '.' . $extension;
+        $path = $request->file('image')->storeAs('public/uploads', $filename);
+        return $filename;
     }
 }
