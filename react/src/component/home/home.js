@@ -15,6 +15,7 @@ function Home() {
             <Typography variant='h5'>card</Typography>
             <Typography variant='h5'>btn pour event dans le bo</Typography>
             <Typography variant='h5'>auth</Typography>
+            <Typography variant='h5'>changer palette couleur</Typography>
         </Box>
     </Container>
 }
