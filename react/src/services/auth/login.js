@@ -51,7 +51,7 @@ function Login () {
                 localStorage.setItem('access_token', res.data.token)
                 setToastMessage({message: "Vous êtes connecté !", severity: "success"});
                 setShowToast(true);
-                /*navigate(from, { replace: true });*/
+/*                navigate(from, { replace: true });*/
                 dispatch(loggedTrue())
             } else {
                 setToastMessage({message: "Une erreur est survenue", severity: "error"});
@@ -64,6 +64,9 @@ function Login () {
                     setToastMessage({message: value, severity: "error"});
                     setShowToast(true);
                 }
+            } else if (errors.message){
+                setToastMessage({message: errors.message, severity: "error"});
+                setShowToast(true);
             }
         }
     }
@@ -82,7 +85,7 @@ function Login () {
         <Box className="f-r-c-c"><Button variant="contained" href='register'>Créer un compte</Button></Box>
             <form onSubmit={handleSubmit(login)}>
                 <Grid container spacing={12} sx={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <Grid item sx={{ width: '70vh' }}>
+                    <Grid item sx={{ width: '50vh' }}>
                         <Controller
                             name="email"
                             control={control}
@@ -101,7 +104,7 @@ function Login () {
                                 />
                             )}
                         />
-                        {errors.name ? (
+                        {errors.email ? (
                             <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.email?.message}</Alert>
                         ) : ''}
 
@@ -110,7 +113,7 @@ function Login () {
                             control={control}
                             defaultValue=""
                             render={() => (<FormControl fullWidth sx={{mt: 5, height: 50}}>
-                                <InputLabel htmlFor="password" sx={{ left: '-4%' }}>Password</InputLabel>
+                                <InputLabel htmlFor="password" sx={{ left: '-15px' }}>Password</InputLabel>
                                 <Input
                                     {...register(
                                     'password', {

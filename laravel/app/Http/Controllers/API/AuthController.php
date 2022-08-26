@@ -20,6 +20,13 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
+        ],
+        [
+            'email.email' => 'Ce champ attend un donnée de type email',
+            'email.required' => 'Ce champ est requis',
+            'password.required' => 'Ce champ est requis',
+            'password.string' => 'Ce champ attend un donnée de type text',
+
         ]);
         $credentials = $request->only('email', 'password');
 
@@ -27,7 +34,7 @@ class AuthController extends Controller
         if (!$token) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Unauthorized',
+                'message' => 'L\'email ou le mot de passe n\'est pas bon',
             ], 401);
         }
 
