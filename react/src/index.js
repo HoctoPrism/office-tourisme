@@ -25,6 +25,7 @@ import {Navbar} from "./component/_partials/_navbar/_navbar";
 import {Footer} from "./component/_partials/_footer/_footer";
 import Schedule from "./component/schedule/schedule";
 import Address from "./component/address/address";
+import Login from "./services/auth/login";
 
 function CustomTheme() {
 
@@ -65,6 +66,7 @@ function CustomTheme() {
                     <Route exact path="schedule" element={<RouteService Component={Schedule}/>}>Schedule</Route>
                     <Route exact path="type" element={<RouteService Component={Type}/>}>Type</Route>
                     <Route exact path="event" element={<RouteService Component={Event}/>}>Event</Route>
+                    <Route exact path="login" element={<RouteService Component={Login}/>}>Login</Route>
                     <Route path="*" element={
                         <div>
                             <p>Il n'y a rien ici !</p>

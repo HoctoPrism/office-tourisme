@@ -1,6 +1,7 @@
 import {AppBar, Box, Button} from "@mui/material";
 import {SwitchModeButton} from "../_theme/_switchModeButton";
 import {useEffect} from "react";
+import LoginButton from "../../features/loginButton/LoginButton";
 
 export function Navbar() {
 
@@ -18,6 +19,7 @@ export function Navbar() {
                     <Button color="secondary" href='schedule'>Schedule</Button>
                     <Button color="secondary" href='type'>Type</Button>
                     <Button color="secondary" href='event'>Event</Button>
+                    <LoginButton/>
                     <SwitchModeButton/>
                 </Box>
             </AppBar>
