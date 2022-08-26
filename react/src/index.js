@@ -26,6 +26,7 @@ import {Footer} from "./component/_partials/_footer/_footer";
 import Schedule from "./component/schedule/schedule";
 import Address from "./component/address/address";
 import Login from "./services/auth/login";
+import Logout from "./services/auth/logout";
 
 function CustomTheme() {
 
@@ -67,6 +68,7 @@ function CustomTheme() {
                     <Route exact path="type" element={<RouteService Component={Type}/>}>Type</Route>
                     <Route exact path="event" element={<RouteService Component={Event}/>}>Event</Route>
                     <Route exact path="login" element={<RouteService Component={Login}/>}>Login</Route>
+                    <Route exact path="logout" element={<RouteService Component={Logout}/>}>Logout</Route>
                     <Route path="*" element={
                         <div>
                             <p>Il n'y a rien ici !</p>
