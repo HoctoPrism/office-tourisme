@@ -8,13 +8,12 @@ function Home() {
 
     return <Container maxWidth="lg" id='home'>
         <Box>
-            <Typography variant='h5'>Gerer restaurnt_food</Typography>
-            <Typography variant='h5'>card</Typography>
-            <Typography variant='h5'>carte</Typography>
+            <Typography variant='h5'>carte des lieux</Typography>
             <Typography variant='h5'>ajout lieu avec long/lat </Typography>
             <Typography variant='h5'>card</Typography>
             <Typography variant='h5'>btn pour event dans le bo</Typography>
             <Typography variant='h5'>auth</Typography>
+            <Typography variant='h5'>gérer les redirections login/logout</Typography>
             <Typography variant='h5'>changer palette couleur</Typography>
         </Box>
     </Container>
