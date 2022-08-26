@@ -25,4 +25,4 @@ function Guard () {
 
 }
 
-export default {Guard};
+export default Guard;

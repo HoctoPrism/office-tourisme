@@ -1,12 +1,12 @@
 import React from 'react'
-import Auth from "../auth/guard";
+import Guard from "../auth/guard";
 import Login from "../auth/login";
 
 const RouteService = ({Component}) => {
-    if (Auth.Guard()){
+    if (Guard()){
         return <Component />
     } else {
-        return <Login />
+        return <Component />
     }
 }
 
