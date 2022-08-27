@@ -11,9 +11,7 @@ function Home() {
             <Typography variant='h5'>carte des lieux</Typography>
             <Typography variant='h5'>ajout lieu avec long/lat </Typography>
             <Typography variant='h5'>card</Typography>
-            <Typography variant='h5'>gérer les redirections login/logout</Typography>
             <Typography variant='h5'>changer palette couleur</Typography>
-            <Typography variant='h5'>le flash blanc</Typography>
         </Box>
     </Container>
 }
