@@ -25,7 +25,7 @@ export const SwitchModeButton = () => {
         onChange={toggleDarkMode}
         color="inherit"
       >
-        {theme.palette.mode === "dark" ? <LightIcon /> : <DarkIcon />}
+        {theme.palette.type === "dark" ? <LightIcon /> : <DarkIcon />}
       </IconButton>
     </Box>
   );
