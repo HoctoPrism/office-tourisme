@@ -53,10 +53,17 @@ class AuthController extends Controller
         $request->validate([
             'lastname' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
-            'username' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6'
-        ]);
+        ],
+        [
+            'email.email' => 'Ce champ attend un donnée de type email',
+            'email.required' => 'Ce champ est requis',
+            'password.required' => 'Ce champ est requis',
+            'password.string' => 'Ce champ attend un donnée de type text'
+        ]
+        );
 
         if (empty($request->roles)){
             $request->roles = json_encode(["ROLE_USER"]);
@@ -74,13 +81,8 @@ class AuthController extends Controller
         $token = Auth::login($user);
         return response()->json([
             'status' => 'success',
-            'message' => 'User created successfully',
             'user' => $user,
-            'authorisation' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ],
-            'request' => $request
+            'token' => $token
         ]);
     }
 
