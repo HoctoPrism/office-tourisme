@@ -19,6 +19,7 @@ import NewPlace from "./newPlace";
 import EditPlace from "./editPlace";
 import axios from "axios";
 import SchedulePlace from "./displaySchedule";
+import EventPlace from "./displayEvent";
 
 function Place() {
 
@@ -73,7 +74,7 @@ function Place() {
             {loading ? (
                 <Typography variant="h5" sx={{textAlign: "center"}} gutterBottom>Chargement des places...</Typography>
             ) : (
-                <Box sx={{ maxWidth: '100%' }}>
+                <Box sx={{ maxWidth: '90%' }}>
                     <NewPlace newValue={{data}} handleDataChange={handleDataChange} />
                     <TableContainer sx={{ mt:4 }}>
                         <Table size="small">
@@ -105,7 +106,7 @@ function Place() {
                                                 ) }
                                             </TableCell>
                                             <TableCell sx={{fontWeight: 'bold'}}>{address.address ?? '--'} {address.city ?? '--'} {address.postal_code ?? '--'}</TableCell>
-                                            <TableCell sx={{fontWeight: 'bold'}}>{event.name ?? '--'}</TableCell>
+                                            <TableCell sx={{fontWeight: 'bold'}}>{event ? <EventPlace display={{id, name, event}} /> : '--'}</TableCell>
                                             <TableCell sx={{fontWeight: 'bold'}}>{type.name ?? '--'}</TableCell>
                                             <TableCell sx={{fontWeight: 'bold'}}>{schedule ? <SchedulePlace display={{id, name, schedule}} /> : '--'}</TableCell>
                                             <TableCell>
