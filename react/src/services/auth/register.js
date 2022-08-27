@@ -1,6 +1,20 @@
 import {useEffect, useRef, useState} from "react";
-import {useForm} from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 import {useLocation, useNavigate} from "react-router-dom";
+import {
+  Alert,
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  IconButton, Input,
+  InputAdornment,
+  InputLabel,
+  Snackbar, TextField,
+  Typography
+} from "@mui/material";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
+import axios from "axios";
 
 function Register () {
 
@@ -9,12 +23,18 @@ function Register () {
   let navigate = useNavigate();
   let location = useLocation();
 
-  const { register, watch, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({ mode: "onChange" });
-  const name = watch('name', "");
+  const { register, watch, control, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({ mode: "onChange" });
+
+  const email = watch('email', "");
   const password = watch('password', "");
-  const [role, setRole] = useState("");
+  const name = watch('name', "");
+  const lastname = watch('lastname', "");
+  const firstname = watch('firstname', "");
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [toast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState({});
   const [errMessage, setErrMessage] = useState("");
-  const [toastRegister, setShowToastRegister] = useState(false);
   const onSubmit = e => registerForm();
 
   const min = useRef()
@@ -61,105 +81,216 @@ function Register () {
   let registerForm = async () => {
     setErrMessage('')
     try {
-      let register = {
-        name: name,
-        password: password,
-        role: role
-      }
-      let res = await fetch("http://127.0.0.1:8000/api/register/", {
-        method: "POST",
-        headers: {
-          'Content-Type':'application/json'
-        },
-        body: JSON.stringify(register),
+      let formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("name", name);
+      formData.append("lastname", lastname);
+      formData.append("firstname", firstname);
+
+      let res = await axios.post('http://127.0.0.1:8000/api/register/', formData, {
+        "headers" : { "Content-Type":"multipart/form-data" }
       });
+
       if (res.status === 200) {
         setErrMessage('')
-        setShowToastRegister(true)
+        localStorage.setItem('access_token', res.data.token)
         navigate('/', { replace: true });
       } else {
-        res.json().then(( errValue => setErrMessage(errValue) ));
+        setToastMessage({message: "Une erreur est survenue", severity: "error"});
+        setShowToast(true);
       }
     } catch (err) {
       console.log(err);
     }
   }
 
-  return <div className='text-center'>
-    <h1 className='mb-3'>Inscription au site</h1>
-    <div className='d-flex justify-content-center align-items-center'>
-      <Form className='w-25 mt-4' onSubmit={handleSubmit(onSubmit)}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label className='fw-bold'>Email</Form.Label>
-          <Form.Control
-            className='alt-bg-sombre text-clair border-0 shadow mb-2'
-            type="text"
-            placeholder="name"
-            {...register("name", {
-              required: 'Veuillez saisir un email',
-              pattern: {
-                value: /^\S+@\S+$/i,
-                message: "Veuillez saisir un email valide"
-              }
-            })}
+  const handleClickShowPassword = () => {
+    if (!showPassword) {
+        setShowPassword(true)
+    } else {
+        setShowPassword(false)
+    }
+  };
+
+  return <Box>
+    <Typography variant='h1' sx={{ fontSize: "55px", textAlign: "center" }}>Connexion</Typography>
+    <Box className="f-r-c-c"><Button variant="contained" href='login'>Connexion</Button></Box>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid container spacing={12} sx={{ alignItems: 'center', justifyContent: 'center' }}>
+        <Grid item sx={{ width: '50vh' }}>
+          <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              render={() => (
+                  <TextField
+                      {...register(
+                      'email', {
+                          required: 'Veuillez saisir un email',
+                          pattern: {
+                            value: /^\S+@\S+$/i,
+                            message: "Veuillez saisir un email valide"
+                          }
+                        }
+                      )}
+                      sx={{mt: 5, height: 50}}
+                      label="Email"
+                      variant="standard"
+                      value={email}
+                      fullWidth
+                  />
+              )}
           />
-          { errMessage ? <div className='text-danger error'>{errMessage.name}</div> : null} {/* gestion d'erreur prevenant de node */}
-          { errors.name ? <div className='text-danger error'>{errors.name.message}</div> : null} {/* gestion d'erreur prevenant de react */}
-        </Form.Group>
+          {errors.email ? (
+              <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.email?.message}</Alert>
+          ) : ''}
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label className='fw-bold'>Mot de passe</Form.Label>
-          <Form.Control
-            className='alt-bg-sombre text-clair border-0 shadow mb-2'
-            type="password"
-            placeholder="password"
-            {...register("password", {
-              required: 'Veuillez saisir un mot de passe',
-              minLength: {
-                value: 8,
-                message: "Le mot de passe doit faire au minimum 8 caractères"
-              },
-              pattern: {
-                value: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#:$%^&])/,
-                message: "Le mot de passe doit contenir une minuscule, une majuscule, un chiffre et un caractère spéciale"
-              }
-            })}
+          <Controller
+              name="firstname"
+              control={control}
+              defaultValue=""
+              render={() => (
+                  <TextField
+                      {...register(
+                      'firstname', {
+                          required: 'Veuillez saisir un firstname',
+                        }
+                      )}
+                      sx={{mt: 5, height: 50}}
+                      label="Prénom"
+                      variant="standard"
+                      value={firstname}
+                      fullWidth
+                  />
+              )}
           />
-          { errMessage ? <div className='text-danger error'>{errMessage.password}</div> : null} {/* gestion d'erreur prevenant de node */}
-          { errors.password ? <div className='text-danger error'>{errors.password.message}</div> : null} {/* gestion d'erreur prevenant de react */}
-        </Form.Group>
+          {errors.firstname ? (
+              <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.firstname?.message}</Alert>
+          ) : ''}
 
-        <div className="regex">
-          <div className='d-flex justify-content-start align-items-center'>
-              <div ref={min} className="bubble"></div>
-              <div>Le mot de passe doit contenir au moins une minuscule</div>
-          </div>
-          <div className='d-flex justify-content-start align-items-center'>
-              <div ref={max} className="bubble"></div>
-              <div>Le mot de passe doit contenir au moins une majuscule</div>
-          </div>
-          <div className='d-flex justify-content-start align-items-center'>
-              <div ref={num} className="bubble"></div>
-              <div>Le mot de passe doit contenir au moins un chiffre</div>
-          </div>
-          <div className='d-flex justify-content-start align-items-center'>
-              <div ref={spec} className="bubble"></div>
-              <div>Le mot de passe doit contenir au moins un caractère spécial</div>
-          </div>
-        </div>
+          <Controller
+              name="lastname"
+              control={control}
+              defaultValue=""
+              render={() => (
+                  <TextField
+                      {...register(
+                      'lastname', {
+                          required: 'Veuillez saisir un lastname',
+                        }
+                      )}
+                      sx={{mt: 5, height: 50}}
+                      label="Nom"
+                      variant="standard"
+                      value={lastname}
+                      fullWidth
+                  />
+              )}
+          />
+          {errors.lastname ? (
+              <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.lastname?.message}</Alert>
+          ) : ''}
 
-        <Button type="submit" disabled={!isDirty || !isValid} className='bg-clair border-0 text-sombre'>VALIDER</Button>
-      </Form>
-    </div>
+          <Controller
+              name="name"
+              control={control}
+              defaultValue=""
+              render={() => (
+                  <TextField
+                      {...register(
+                      'name', {
+                          required: 'Veuillez saisir un name',
+                        }
+                      )}
+                      sx={{mt: 5, height: 50}}
+                      label="Username"
+                      variant="standard"
+                      value={name}
+                      fullWidth
+                  />
+              )}
+          />
+          {errors.name ? (
+              <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.name?.message}</Alert>
+          ) : ''}
 
-    <ToastContainer position="bottom-center">
-      <Toast className="mb-3" delay={3000} autohide show={toastRegister} onClose={() => setShowToastRegister(false)}>
-        <Toast.Header>
-          <strong className="me-auto text-sombre">Inscription terminé ! Vous pouvez vous connecter !</strong>
-        </Toast.Header>
-      </Toast>
-    </ToastContainer>
-  </div>
+          <Controller
+              name="password"
+              control={control}
+              defaultValue=""
+              render={() => (<FormControl fullWidth sx={{mt: 5, height: 50}}>
+                  <InputLabel htmlFor="password" sx={{ left: '-15px' }}>Password</InputLabel>
+                  <Input
+                      {...register(
+                    'password', {
+                            required: 'Ce champ est requis',
+                            minLength: {value: 5, message: 'Longueur minimale de 5 caractères'},
+                            pattern: {
+                              value: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#:$%^&])/,
+                              message: "Le mot de passe doit contenir une minuscule, une majuscule, un chiffre et un caractère spéciale"
+                            }
+                          }
+                      )}
+                      id="password"
+                      type={showPassword ? 'text' : 'password'}
+                      variant="standard"
+                      value={password}
+                      endAdornment={
+                      <InputAdornment position="end" sx={{ color: "inherit" }}>
+                          <IconButton
+                              color="inherit"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={(e) => e.preventDefault()}
+                          >
+                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                      </InputAdornment>
+                      }
+                  />
+              </FormControl>
+              )}
+          />
+          {errors.password ? (
+              <Alert sx={{mt:2, p:0, pl:2}} severity="error">{errors.password?.message}</Alert>
+          ) : ''}
+
+          <Box className="regex">
+            <Box sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
+                <Box ref={min} className="bubble"></Box>
+                <Box>Le mot de passe doit contenir au moins une minuscule</Box>
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
+                <Box ref={max} className="bubble"></Box>
+                <Box>Le mot de passe doit contenir au moins une majuscule</Box>
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
+                <Box ref={num} className="bubble"></Box>
+                <Box>Le mot de passe doit contenir au moins un chiffre</Box>
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center'}}>
+                <Box ref={spec} className="bubble"></Box>
+                <Box>Le mot de passe doit contenir au moins un caractère spécial</Box>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+      <Grid item sx={{ minwidth: '100%' }} className="f-c-c-c">
+        <Button type="submit" disabled={!isDirty || !isValid} variant="contained" sx={{m: 8}}>VALIDER</Button>
+      </Grid>
+    </form>
+
+    <Snackbar
+        open={toast}
+        autoHideDuration={3000}
+        onClose={() => setShowToast(false)}
+        anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+    >
+        <Alert onClose={() => setShowToast(false)} severity={toastMessage.severity} sx={{width: '100%'}}>
+            {toastMessage.message}
+        </Alert>
+    </Snackbar>
+  </Box>
 }
 
-export default {Register};
+export default Register;
