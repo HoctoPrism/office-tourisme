@@ -52,7 +52,8 @@ function Login () {
                 setToastMessage({message: "Vous êtes connecté !", severity: "success"});
                 setShowToast(true);
 /*                navigate(from, { replace: true });*/
-                dispatch(loggedTrue())
+                await dispatch(loggedTrue())
+                navigate('/', { replace: true });
             } else {
                 setToastMessage({message: "Une erreur est survenue", severity: "error"});
                 setShowToast(true);
