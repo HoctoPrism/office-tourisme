@@ -14,6 +14,7 @@ import {useEffect, useState} from "react";
 import update from "immutability-helper";
 import {DeleteForeverRounded} from "@mui/icons-material";
 import axios from "axios";
+import auth from "../../services/auth/token"
 
 function DeleteSchedule(props) {
 
@@ -25,7 +26,9 @@ function DeleteSchedule(props) {
     let deleteSchedule = async (e) => {
         e.preventDefault();
         try {
-            let res = await axios.delete('http://127.0.0.1:8000/api/schedules/' + oneSchedule.id)
+            let res = await axios.delete('http://127.0.0.1:8000/api/schedules/' + oneSchedule.id, {
+                "headers" : {"Authorization":"Bearer"+auth.getToken()}
+            })
             if (res.status === 200) {
                 const foundIndex = props.deleteValue.data.findIndex(x => x.id === oneSchedule.id);
                 let data = update(props.deleteValue.data, {$splice: [[foundIndex, 1]]})

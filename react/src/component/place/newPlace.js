@@ -15,6 +15,7 @@ import {useEffect, useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import axios from "axios";
+import auth from "../../services/auth/token"
 
 function NewPlace(props) {
 
@@ -83,11 +84,12 @@ function NewPlace(props) {
             formData.append("schedule", `${schedule}`);
             formData.append("address", `${address}`);
 
-            let newPlace = {name: name, description: description, image: image, type: type, event: event, schedule: schedule, address: address};
-
             let res = await axios.post('http://127.0.0.1:8000/api/places/', formData, {
-                "headers" : { "Content-Type":"multipart/form-data" }
-            });
+                "headers" : {
+                    "Content-Type":"multipart/form-data",
+                    "Authorization":"Bearer"+auth.getToken()
+                }
+            })
             if (res.status === 200) {
                 let tab = {};
                 await Object.assign(tab, res.data.data);

@@ -5,6 +5,7 @@ import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import { format } from "date-fns";
 import axios from "axios";
+import auth from "../../services/auth/token"
 
 function EditEvent(props) {
     const [id, setID] = useState("");
@@ -26,7 +27,9 @@ function EditEvent(props) {
                 date_start: format(new Date(date_start), "yyyy-MM-dd HH:mm:ss") ?? oneEvent.date_start,
                 date_end: format(new Date(date_end), "yyyy-MM-dd HH:mm:ss") ?? oneEvent.date_end,
             }
-            let res = await axios.patch("http://127.0.0.1:8000/api/events/" + oneEvent.id, {name, date_start, date_end})
+            let res = await axios.patch("http://127.0.0.1:8000/api/events/" + oneEvent.id, {name, date_start, date_end}, {
+                "headers" : { "Authorization":"Bearer"+auth.getToken() }
+            });
             if (res.status === 200) {
                 const foundIndex = props.updateValue.data.findIndex(x => x.id === oneEvent.id);
                 let data = update(props.updateValue.data, {[foundIndex]: {$set: updatedEvent}})

@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import update from "immutability-helper";
 import {DeleteForeverRounded} from "@mui/icons-material";
 import axios from "axios";
+import auth from "../../services/auth/token"
 
 function DeleteType(props) {
 
@@ -14,7 +15,9 @@ function DeleteType(props) {
     let deleteType = async (e) => {
         e.preventDefault();
         try {
-            let res = await axios.delete('http://127.0.0.1:8000/api/types/' + oneType.id)
+            let res = await axios.delete('http://127.0.0.1:8000/api/types/' + oneType.id, {
+                "headers" : {"Authorization":"Bearer"+auth.getToken()}
+            })
             if (res.status === 200) {
                 const foundIndex = props.deleteValue.data.findIndex(x => x.id === oneType.id);
                 let data = update(props.deleteValue.data, {$splice: [[foundIndex, 1]]})

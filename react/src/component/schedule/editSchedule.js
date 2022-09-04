@@ -4,6 +4,7 @@ import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import axios from "axios";
+import auth from "../../services/auth/token"
 
 function EditSchedule(props) {
     const [id, setID] = useState("");
@@ -76,7 +77,9 @@ function EditSchedule(props) {
                 sunday_start: sunday_start,
                 sunday_end: sunday_end,
             }
-            let res = await axios.patch("http://127.0.0.1:8000/api/schedules/" + oneSchedule.id, updatedSchedule)
+            let res = await axios.patch("http://127.0.0.1:8000/api/schedules/" + oneSchedule.id, updatedSchedule, {
+                "headers" : {"Authorization":"Bearer"+auth.getToken()}
+            })
             if (res.status === 200) {
                 const foundIndex = props.updateValue.data.findIndex(x => x.id === oneSchedule.id);
                 let data = update(props.updateValue.data, {[foundIndex]: {$set: updatedSchedule}})

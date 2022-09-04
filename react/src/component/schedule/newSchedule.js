@@ -3,6 +3,7 @@ import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import axios from "axios";
+import auth from "../../services/auth/token"
 
 function NewSchedule(props) {
 
@@ -66,7 +67,9 @@ function NewSchedule(props) {
                 sunday_end: sunday_end,
             }
 
-            let res = await axios.post('http://127.0.0.1:8000/api/schedules/', newSchedule)
+            let res = await axios.post('http://127.0.0.1:8000/api/schedules/', newSchedule, {
+                "headers" : {"Authorization":"Bearer"+auth.getToken()}
+            })
             if (res.status === 200) {
                 let tab = {};
                 await Object.assign(tab, res.data.data);

@@ -4,6 +4,7 @@ import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import axios from "axios";
+import auth from "../../services/auth/token"
 
 function EditType(props) {
     const [id, setID] = useState("");
@@ -21,7 +22,9 @@ function EditType(props) {
                 id: id ? id : parseInt(oneType.id),
                 name: name ? name : oneType.name,
             }
-            let res = await axios.patch("http://127.0.0.1:8000/api/types/" + oneType.id, {name})
+            let res = await axios.patch("http://127.0.0.1:8000/api/types/" + oneType.id, {name}, {
+                "headers" : {"Authorization":"Bearer"+auth.getToken()}
+            })
             if (res.status === 200) {
                 const foundIndex = props.updateValue.data.findIndex(x => x.id === oneType.id);
                 let data = update(props.updateValue.data, {[foundIndex]: {$set: updatedType}})

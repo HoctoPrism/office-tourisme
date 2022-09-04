@@ -16,6 +16,7 @@ import {useEffect, useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import axios from "axios";
+import auth from "../../services/auth/token"
 
 function EditPlace(props) {
     const [id, setID] = useState("");
@@ -66,9 +67,6 @@ function EditPlace(props) {
 
             let formData = new FormData();
 
-            console.log(type)
-            console.log(event)
-
             formData.append("name",  name);
             formData.append("description", description);
             formData.append("type",  type ? `${type}` : `${props.updateValue.type.id}`);
@@ -92,7 +90,10 @@ function EditPlace(props) {
             }
 
             let res = await axios.post("http://127.0.0.1:8000/api/places/" + onePlace.id, formData, {
-                "headers" : { "Content-Type":"multipart/form-data" }
+                "headers" : {
+                    "Content-Type":"multipart/form-data",
+                    "Authorization":"Bearer"+auth.getToken()
+                }
             })
             if (res.status === 200) {
                 const foundIndex = props.updateValue.data.findIndex(x => x.id === onePlace.id);

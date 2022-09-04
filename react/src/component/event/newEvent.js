@@ -3,6 +3,7 @@ import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import { format } from "date-fns";
+import auth from "../../services/auth/token"
 import axios from "axios";
 
 function NewEvent(props) {
@@ -19,7 +20,9 @@ function NewEvent(props) {
 
     let newEventForm = async () => {
         try {
-            let res = await axios.post('http://127.0.0.1:8000/api/events/', {name, date_start, date_end})
+            let res = await axios.post('http://127.0.0.1:8000/api/events/', {name, date_start, date_end}, {
+                "headers" : { "Authorization":"Bearer"+auth.getToken() }
+            });
             if (res.status === 200) {
                 let tab = {};
                 res.data.data.date_start = format(new Date(date_start), "yyyy-MM-dd HH:mm:ss")

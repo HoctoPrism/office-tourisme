@@ -3,6 +3,7 @@ import {useState} from "react";
 import update from "immutability-helper";
 import {useForm, Controller} from "react-hook-form";
 import axios from "axios";
+import auth from "../../services/auth/token"
 
 function NewType(props) {
 
@@ -16,7 +17,9 @@ function NewType(props) {
 
     let newTypeForm = async () => {
         try {
-            let res = await axios.post('http://127.0.0.1:8000/api/types/', {name})
+            let res = await axios.post('http://127.0.0.1:8000/api/types/', {name}, {
+                "headers" : {"Authorization":"Bearer"+auth.getToken()}
+            })
             if (res.status === 200) {
                 let tab = {};
                 await Object.assign(tab, res.data.data);
