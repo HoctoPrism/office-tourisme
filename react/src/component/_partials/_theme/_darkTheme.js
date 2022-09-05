@@ -20,16 +20,16 @@ export const darkTheme = {
     palette: {
         type: 'dark',
         primary: {
-            main: '#d96161',
-            light: 'rgb(224, 128, 128)',
-            dark: 'rgb(151, 67, 67)',
-            contrastText: '#fff',
+          main: '#5468ff',
+          light: '#ccd2ff',
+          dark: '#ccd2ff',
+          contrastText: '#c8cdff',
         },
         secondary: {
-            main: '#f4cfd5',
-            light: 'rgb(246, 216, 221)',
-            dark: 'rgb(170, 144, 149)',
-            contrastText: 'rgba(0, 0, 0, 0.87)',
+          main: '#e6ecfd',
+          light: 'rgb(235, 239, 253)',
+          dark: 'rgb(211,216,243)',
+          contrastText: 'rgba(0, 0, 0, 0.87)',
         },
         warning: {
             main: '#ff9800',
@@ -65,16 +65,16 @@ export const darkTheme = {
             A400: '#bdbdbd',
             A700: '#616161'
         },
-        divider: 'rgba(255, 255, 255, 0.12)',
+        divider: 'rgba(182,183,213,0.22)',
         background: {
-            default: '#242c2f',
-            paper: '#394248',
+          paper: '#36395a',
+          default: '#313553',
         },
         text: {
-            primary: '#fff',
-            secondary: 'rgba(255, 255, 255, 0.7)',
-            disabled: 'rgba(255, 255, 255, 0.5)',
-            hint: 'rgba(255, 255, 255, 0.5)',
+          primary: '#b6b7d5',
+          secondary: 'rgba(182,183,213,0.86)',
+          disabled: 'rgba(182,183,213,0.56)',
+          hint: 'rgba(182,183,213,0.56)',
         },
         contrastThreshold: 3,
         tonalOffset: 0.2,

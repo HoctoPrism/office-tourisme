@@ -20,16 +20,16 @@ export const lightTheme = {
     palette: {
         type: 'light',
         primary: {
-            main: '#d96161',
-            light: 'rgb(224, 128, 128)',
-            dark: 'rgb(151, 67, 67)',
-            contrastText: '#fff',
+          main: '#5468ff',
+          light: '#ccd2ff',
+          dark: '#ccd2ff',
+          contrastText: '#ccd2ff',
         },
         secondary: {
-            main: '#f4cfd5',
-            light: 'rgb(246, 216, 221)',
-            dark: 'rgb(170, 144, 149)',
-            contrastText: 'rgba(0, 0, 0, 0.87)',
+          main: '#e6ecfd',
+          light: 'rgb(235, 239, 253)',
+          dark: 'rgb(211,216,243)',
+          contrastText: 'rgba(0, 0, 0, 0.87)',
         },
         warning: {
             main: '#ff9800',
@@ -65,16 +65,16 @@ export const lightTheme = {
             A400: '#bdbdbd',
             A700: '#616161'
         },
-        divider: 'rgba(255, 255, 255, 0.12)',
+        divider: 'rgba(54,57,90,0.28)',
         background: {
-            default: '#f5f5f5',
-            paper: '#eceff1',
+          paper: '#fefeff',
+          default: '#fdfdfe',
         },
         text: {
-            primary: 'rgba(0,0,0,0.87)',
-            secondary: 'rgba(0, 0, 0, 0.54)',
-            disabled: 'rgba(0, 0, 0, 0.38)',
-            hint: 'rgba(0, 0, 0, 0.38)',
+          primary: '#36395a',
+          secondary: 'rgba(54,57,90,0.86)',
+          disabled: 'rgba(54,57,90,0.56)',
+          hint: 'rgba(54,57,90,0.56)',
         },
         contrastThreshold: 3,
         tonalOffset: 0.2,

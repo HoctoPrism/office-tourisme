@@ -29,7 +29,6 @@ function Home() {
     return <Container maxWidth="lg" id='home'>
         <Box>
             <Typography variant='h5'>card</Typography>
-            <Typography variant='h5'>changer palette couleur</Typography>
         </Box>
         <Box>
             <MapContainer className='map-container' center={[45.042768, 3.882936]} zoom={14} scrollWheelZoom={true} >
