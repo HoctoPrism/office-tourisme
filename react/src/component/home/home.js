@@ -1,50 +1,46 @@
-import React, {useEffect, useState} from "react";
-import {Box, Container, Typography} from "@mui/material";
-import {MapContainer, Marker, Popup, TileLayer} from 'react-leaflet'
-import  "leaflet/dist/leaflet.css";
-import L from 'leaflet';
+import React, {useEffect, useRef, useState} from "react";
+import {Box, Container, Paper, Typography} from "@mui/material";
+import maplibregl from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import axios from "axios";
 
 function Home() {
 
     document.title = 'Page d\'accueil'
 
-    const [addresses, setAddresses] = useState([]);
-    L.Icon.Default.mergeOptions({
-        iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-        iconUrl: require('leaflet/dist/images/marker-icon.png'),
-        shadowUrl: require('leaflet/dist/images/marker-shadow.png')
-    });
+    const mapContainer = useRef(null);
+    const map = useRef(null);
 
     useEffect(() => {
+        if (map.current) return; //stops map from intializing more than once
+        map.current = new maplibregl.Map({
+          container: mapContainer.current,
+          style: `https://api.maptiler.com/maps/6a7cdf9b-726c-40d7-8eba-a30df7de2b6d/style.json?key=xjVJukIphfST6EGCyhVW#14/45.04436/3.88652`,
+        });
+        map.current.addControl(new maplibregl.NavigationControl(), 'top-right');
         axios.get('http://127.0.0.1:8000/api/addresses').then((actualData) => {
             actualData = actualData.data;
-            setAddresses(actualData.data);
+            actualData.data.map((address) => {
+                new maplibregl.Marker({color: "#5468ff"})
+                    .setLngLat([address.longitude,address.latitude])
+                    .setPopup(new maplibregl.Popup({ offset: 25 }).setText(`${address.address}, ${address.postal_code} ${address.city}`))
+                    .addTo(map.current)
+                ;
+            })
         }).catch((err) => {
             console.log(err)
-            setAddresses([null]);
         })
     }, [])
 
     return <Container maxWidth="lg" id='home'>
-        <Box>
-            <Typography variant='h5'>card</Typography>
+        <Box sx={{ mb: 10 }}>
+            <Typography variant='h1' sx={{ fontSize: "25px" }}>Ici les cards</Typography>
         </Box>
-        <Box>
-            <MapContainer className='map-container' center={[45.042768, 3.882936]} zoom={14} scrollWheelZoom={true} >
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {addresses.map((address) => (
-                    <Marker key={address.id} position={[address.latitude, address.longitude]} >
-                        <Popup>
-                            {address.address}, {address.postal_code} {address.city}
-                        </Popup>
-                    </Marker>
-                ))}
-            </MapContainer>
-        </Box>
+        <Paper elevation={12}>
+            <Box className="map-wrap">
+                <Box ref={mapContainer} className="map" />
+            </Box>
+        </Paper>
     </Container>
 }
 
