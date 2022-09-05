@@ -15,7 +15,7 @@ function Home() {
         if (map.current) return; //stops map from intializing more than once
         map.current = new maplibregl.Map({
           container: mapContainer.current,
-          style: `https://api.maptiler.com/maps/6a7cdf9b-726c-40d7-8eba-a30df7de2b6d/style.json?key=xjVJukIphfST6EGCyhVW#14/45.04436/3.88652`,
+          style: `https://api.maptiler.com/maps/6a7cdf9b-726c-40d7-8eba-a30df7de2b6d/style.json?key=0uafp7rmIn8BPdz5ER79#14/45.04436/3.88652`,
         });
         map.current.addControl(new maplibregl.NavigationControl(), 'top-right');
         axios.get('http://127.0.0.1:8000/api/addresses').then((actualData) => {
