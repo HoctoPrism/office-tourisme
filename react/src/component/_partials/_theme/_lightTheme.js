@@ -22,7 +22,7 @@ export const lightTheme = {
         primary: {
           main: '#5468ff',
           light: '#ccd2ff',
-          dark: '#ccd2ff',
+          dark: '#414fd0',
           contrastText: '#ccd2ff',
         },
         secondary: {
@@ -67,7 +67,7 @@ export const lightTheme = {
         },
         divider: 'rgba(54,57,90,0.28)',
         background: {
-          paper: '#fefeff',
+          paper: '#f8f8ff',
           default: '#fdfdfe',
         },
         text: {

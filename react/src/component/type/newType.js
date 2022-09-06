@@ -59,8 +59,7 @@ function NewType(props) {
                                {...register(
                                    'name',
                                    {
-                                       required: 'Ce champ est requis',
-                                       minLength: {value: 5, message: 'Longueur minimale de 5 caractères'}
+                                       required: 'Ce champ est requis'
                                    }
                                )}
                                onChange={(e) => setName(e.target.value)}
