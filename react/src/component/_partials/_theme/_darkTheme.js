@@ -49,6 +49,7 @@ export const darkTheme = {
             dark: 'rgb(53, 122, 56)',
             contrastText: 'rgba(0, 0, 0, 0.87)',
         },
+        alternative : '#f8f8ff',
         grey: {
             50: '#fafafa',
             100: '#f5f5f5',

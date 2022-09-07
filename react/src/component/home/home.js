@@ -44,48 +44,36 @@ function Home() {
                 {addresses ? (
                     addresses.map((address) => {
                         return <Grid item xs={4}>
-                            <Card sx={{ display: 'flex', minHeight: 320 }}>
-                                <Grid container spacing={5}>
-                                    <Grid item xs={6}>
-                                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                            <CardContent sx={{ flex: '1 0 auto' }}>
-                                                <Typography component="div" variant="h5" sx={{ mb: 3 }}>
-                                                    {address.event.name}
-                                                </Typography>
-                                                <Typography component="div" sx={{ mb: 3 }}>
-                                                    <Box>du {address.event.date_start}</Box>
-                                                    <Box>au {address.event.date_end}</Box>
-                                                </Typography>
-                                                <Typography component="div">
-                                                    Type de lieu : {address.type.name}
-                                                </Typography>
-                                            </CardContent>
+                            <Card className="background-card-image" sx={{ backgroundImage: `url("http://127.0.0.1:8000/storage/uploads/${address.image}")` }}>
+                                <Box className="body-card-content" sx={{ backgroundColor: 'alternative', color: 'background.paper' }}>
+                                    <Typography component="div" variant="h5" sx={{ mb: 3 }}>{address.event.name}</Typography>
+                                    <Typography component="div" sx={{ mb: 3 }}>
+                                        <Box component="span">
+                                            <Box component="span">du </Box>
+                                            <Box component="span" sx={{ fontWeight: 'bold' }}>{address.event.date_start}</Box>
                                         </Box>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <CardMedia
-                                            component="img"
-                                            sx={{ width: 250, borderTopLeftRadius: 125, borderBottomLeftRadius: 125, float: 'right' }}
-                                            image={`http://127.0.0.1:8000/storage/uploads/${address.image}`}
-                                            alt={address.name}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Typography sx={{ mx: 4 }} variant="subtitle1" color="text.secondary" component="div">
-                                            {address.description}
-                                        </Typography>
-                                        <Box sx={{ display: 'flex', align: 'center', mt: 4 }}>
-                                            <PlaceSharp sx={{ mx: 2 }} />{address.address.address}, {address.address.postal_code} {address.address.city}
+                                        <Box component="span">
+                                            <Box component="span"> au </Box>
+                                            <Box component="span" sx={{ fontWeight: 'bold' }}>{address.event.date_end}</Box>
                                         </Box>
-                                    </Grid>
-                                </Grid>
+
+                                    </Typography>
+                                    <Typography sx={{ mb: 3 }} component="div">
+                                        <Box component="span" sx={{ fontWeight: 'bold' }}>Type de lieu</Box>
+                                        <Box component="span"> : {address.type.name}</Box>
+                                    </Typography>
+                                    <Typography variant="subtitle1" color="background.default" component="div">
+                                        <Box component="span" sx={{ fontWeight: 'bold' }}>Description </Box>
+                                        <Box component="span">: {address.description}</Box>
+                                    </Typography>
+                                    <Box sx={{ display: 'flex', align: 'center', mt: 3 }}><PlaceSharp sx={{ mr: 2 }} />{address.address.address}, {address.address.postal_code} {address.address.city}</Box>
+                                </Box>
                             </Card>
                         </Grid>
                     })
                 ) : (
                     <Box>Aucun résultat</Box>
                 )}
-
             </Grid>
         </Box>
         <Paper elevation={12} sx={{ mb: 40 }}>
