@@ -49,11 +49,6 @@ function NewPlace(props) {
         schedule: {}
     }});
 
-
-    useEffect( () => {
-        getAlls()
-    }, [])
-
     let reset = () => {
         setName('');
         setDescription('');
@@ -62,13 +57,6 @@ function NewPlace(props) {
         setEvent({});
         setSchedule({});
         setAddress({});
-    }
-
-    let getAlls = async () => {
-        await axios.get("http://127.0.0.1:8000/api/types/").then((actualData) => { setTypes(actualData.data.data) });
-        await axios.get("http://127.0.0.1:8000/api/schedules/").then((actualData) => { setSchedules(actualData.data.data) });
-        await axios.get("http://127.0.0.1:8000/api/events/").then((actualData) => { setEvents(actualData.data.data) });
-        await axios.get("http://127.0.0.1:8000/api/addresses/").then((actualData) => { setAddresses(actualData.data.data) });
     }
 
     let newPlaceForm = async () => {
@@ -106,7 +94,11 @@ function NewPlace(props) {
         }
     }
     return (<Box>
-        <Button variant="contained" onClick={() => {
+        <Button variant="contained" onClick={ async () => {
+            await axios.get("http://127.0.0.1:8000/api/types/").then((actualData) => { setTypes(actualData.data.data) });
+            await axios.get("http://127.0.0.1:8000/api/schedules/").then((actualData) => { setSchedules(actualData.data.data) });
+            await axios.get("http://127.0.0.1:8000/api/events/").then((actualData) => { setEvents(actualData.data.data) });
+            await axios.get("http://127.0.0.1:8000/api/addresses/").then((actualData) => { setAddresses(actualData.data.data) });
             setShowNew(true)
         }}>Ajouter</Button>
         <Modal
@@ -299,7 +291,6 @@ function NewPlace(props) {
                         </Grid>
                     </Grid>
                 </form>
-
             </Box>
         </Modal>
 

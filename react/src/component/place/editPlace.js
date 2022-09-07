@@ -51,17 +51,6 @@ function EditPlace(props) {
         schedule: props.updateValue.schedule
     } });
 
-    useEffect( () => {
-        getAlls()
-    }, [])
-
-    let getAlls = async () => {
-        await axios.get("http://127.0.0.1:8000/api/types/").then((actualData) => { setTypes(actualData.data.data) });
-        await axios.get("http://127.0.0.1:8000/api/schedules/").then((actualData) => { setSchedules(actualData.data.data) });
-        await axios.get("http://127.0.0.1:8000/api/events/").then((actualData) => { setEvents(actualData.data.data) });
-        await axios.get("http://127.0.0.1:8000/api/addresses/").then((actualData) => { setAddresses(actualData.data.data) });
-    }
-
     let editPlaceForm = async () => {
         try {
 
@@ -77,17 +66,6 @@ function EditPlace(props) {
                 formData.append("image", image);
             }
             formData.append("_method", 'PATCH');
-
-            let updatedPlace = {
-                id: id ? id : parseInt(onePlace.id),
-                name: name ? name : onePlace.name,
-                description: description ? description : onePlace.description,
-                image: image ? image : onePlace.image,
-                type: type ? type : onePlace.type.id,
-                event: event ? event : onePlace.event.id,
-                schedule: schedule ? schedule : onePlace.schedule.id,
-                address: address ? address : onePlace.address.id,
-            }
 
             let res = await axios.post("http://127.0.0.1:8000/api/places/" + onePlace.id, formData, {
                 "headers" : {
@@ -114,7 +92,11 @@ function EditPlace(props) {
 
     return(<Box >
           <Button color='info' variant='contained' sx={{mx: 2}}
-            onClick={() => {
+            onClick={ async () => {
+                await axios.get("http://127.0.0.1:8000/api/types/").then((actualData) => { setTypes(actualData.data.data) });
+                await axios.get("http://127.0.0.1:8000/api/schedules/").then((actualData) => { setSchedules(actualData.data.data) });
+                await axios.get("http://127.0.0.1:8000/api/events/").then((actualData) => { setEvents(actualData.data.data) });
+                await axios.get("http://127.0.0.1:8000/api/addresses/").then((actualData) => { setAddresses(actualData.data.data) });
                 setShowEdit(true)
                 setOnePlace({
                     id: props.updateValue.id,
